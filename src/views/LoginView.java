@@ -43,11 +43,11 @@ public class LoginView extends JFrame implements ActionListener{
 		eventCalender.Date(lableDate);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(LoginView.class.getResource("/Item/logo.png")));
-		lblNewLabel_7.setBounds(104, 70, 359, 339);
+		lblNewLabel_7.setIcon(new ImageIcon(LoginView.class.getResource("/Item/logonew.png")));
+		lblNewLabel_7.setBounds(70, 70, 410, 339);
 		panelBackground.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel("Shoping Online");
+		JLabel lblNewLabel_8 = new JLabel("Crypto Trading");
 		lblNewLabel_8.setForeground(new Color(255, 0, 0));
 		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		lblNewLabel_8.setBounds(216, 426, 207, 39);
