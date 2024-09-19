@@ -1,5 +1,3 @@
-/event/
 /components/
-/dao/
 /controller/
-/socket/
+/app/

@@ -138,11 +138,7 @@ public class SignUpPanel extends JPanel{
 					CardLayout cardLayout = (CardLayout) panel.getLayout();
 					cardLayout.next(panel);	
 					}	
-				if(pscf.equals(ps)) {		
 				
-				CardLayout cardLayout = (CardLayout) panel.getLayout();
-				cardLayout.next(panel);	
-				}	
 			}
 		});
 		btnContinue.setForeground(new Color(255, 255, 255));
