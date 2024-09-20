@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.border.MatteBorder;
 
 import components.SignUpPanel;
+import controller.AuthController;
 import utils.*;
 
 import javax.swing.ImageIcon;
@@ -43,11 +45,11 @@ public class LoginView extends JFrame implements ActionListener{
 		eventCalender.Date(lableDate);
 		
 		JLabel lblNewLabel_7 = new JLabel("");
-		lblNewLabel_7.setIcon(new ImageIcon(LoginView.class.getResource("/Item/logo.png")));
-		lblNewLabel_7.setBounds(104, 70, 359, 339);
+		lblNewLabel_7.setIcon(new ImageIcon(LoginView.class.getResource("/Item/logonew.png")));
+		lblNewLabel_7.setBounds(70, 70, 410, 339);
 		panelBackground.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel("Shoping Online");
+		JLabel lblNewLabel_8 = new JLabel("Crypto Trading");
 		lblNewLabel_8.setForeground(new Color(255, 0, 0));
 		lblNewLabel_8.setFont(new Font("Times New Roman", Font.PLAIN, 30));
 		lblNewLabel_8.setBounds(216, 426, 207, 39);
@@ -232,6 +234,7 @@ public class LoginView extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== btnLogin) {
+			AuthController.login(textUser.getText(), textPassword.getText());
 //			Controller.HandleViewClient.sendAccount(textUser.getText(), textPassword.getText());
 //			eventLogin.checkLogin(textUser, textPassword);
 //			this.setVisible(false);

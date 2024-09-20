@@ -16,9 +16,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-
+import controller.AuthController;
+import event.Event_Signup;
 import views.LoginView;
-
 import javax.swing.ImageIcon;
 import java.awt.CardLayout;
 import java.awt.event.FocusAdapter;
@@ -28,7 +28,7 @@ public class SignUpPanel extends JPanel{
 	JButton btnContinue,btnAccepct;
 	public static JPasswordField textPassSp,textPasswordCF;
 	private JTextField textEmail,textUser,textIDCUS,textXN;	
-	
+	private Event_Signup eventSignUp;
 	private LoginView login;
 	JPanel panelAcep,panelAcept,panel;
 	
@@ -38,7 +38,7 @@ public class SignUpPanel extends JPanel{
 	
 	}
 	private void initcomponents() {
-		
+		eventSignUp = new Event_Signup();
 		setBounds(663, 0, 549, 729);
 		setBackground(new Color(255, 255, 255));
 		setLayout(null);
@@ -132,12 +132,13 @@ public class SignUpPanel extends JPanel{
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String pscf =  textPasswordCF.getText();
-				 String ps = textPassSp.getText();
+				String ps = textPassSp.getText();
 				if(pscf.equals(ps)) {		
+					eventSignUp.sendEmail(textPasswordCF, textPassSp, textEmail, textUser);
+					CardLayout cardLayout = (CardLayout) panel.getLayout();
+					cardLayout.next(panel);	
+					}	
 				
-				CardLayout cardLayout = (CardLayout) panel.getLayout();
-				cardLayout.next(panel);	
-				}	
 			}
 		});
 		btnContinue.setForeground(new Color(255, 255, 255));
@@ -239,7 +240,11 @@ public class SignUpPanel extends JPanel{
 		btnAccepct.setBounds(218, 252, 85, 21);
 		btnAccepct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+				Boolean checkEmail = eventSignUp.checkValidateEmail(textXN);
+				if(checkEmail == true) {
+					AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());
+					JOptionPane.showMessageDialog(null, "Register Success");
+				}
 			}
 			});
 		panelAcep.add(btnAccepct);
