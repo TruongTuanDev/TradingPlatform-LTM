@@ -13,7 +13,7 @@ public class Encription {
     public static String encryption(String msg) {
         try {
             // Đọc file chứa public key
-            File publicKeyFile = new File("C:/Users/admin/Desktop/Workspace/CuoiKiJava2/ServerApp/keydata/publicKey.rsa");
+            File publicKeyFile = new File("C:/Users/HI/eclipse-workspace/TradingPlatformServer/keydata/publicKey.rsa");
             byte[] publicKeyBytes = Files.readAllBytes(publicKeyFile.toPath());
 
             // Tạo public key

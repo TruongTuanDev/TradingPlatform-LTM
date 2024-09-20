@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.border.MatteBorder;
 
 import components.SignUpPanel;
+import controller.AuthController;
 import utils.*;
 
 import javax.swing.ImageIcon;
@@ -232,6 +234,7 @@ public class LoginView extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== btnLogin) {
+			AuthController.login(textUser.getText(), textPassword.getText());
 //			Controller.HandleViewClient.sendAccount(textUser.getText(), textPassword.getText());
 //			eventLogin.checkLogin(textUser, textPassword);
 //			this.setVisible(false);

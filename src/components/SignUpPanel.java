@@ -240,8 +240,11 @@ public class SignUpPanel extends JPanel{
 		btnAccepct.setBounds(218, 252, 85, 21);
 		btnAccepct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());
-				JOptionPane.showMessageDialog(null, "Register Success");
+				Boolean checkEmail = eventSignUp.checkValidateEmail(textXN);
+				if(checkEmail == true) {
+					AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());
+					JOptionPane.showMessageDialog(null, "Register Success");
+				}
 			}
 			});
 		panelAcep.add(btnAccepct);

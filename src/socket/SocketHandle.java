@@ -39,6 +39,26 @@ public class SocketHandle {
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		
+					while (true) {
+						message = inputReader.readLine();
+						System.out.println("Nhan ve : "+message);
+						if (message.equals("End")) {
+							break;
+						}
+						String[] mesageSlip = message.split(",");
+						switch (mesageSlip[0].trim()) {
+						case "login-succses": {
+							System.out.println("Dang nhap thanh cong");
+							break;
+						}case "login-false" :{
+							System.out.println("Dang nhap that bai");
+							break;
+						}case "register-succses" :{
+							System.out.println("Dang Ki thanh cong");
+							break;
+						}
+						}
+					}
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

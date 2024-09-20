@@ -7,7 +7,16 @@ public class AuthController {
 		String s1 = passWord;
 //		String s2 = utils.Encription.encryption(s1);
 		if (SocketHandle.getDaOutputStream() != null) {
-		    SocketHandle.getDaOutputStream().println("request-register,"+s1+","+email+","+userName);
+		    SocketHandle.getDaOutputStream().println("request-register,"+userName+","+s1+","+email);
+		} else {
+		    System.err.println("Output stream is not ready. Socket may not be initialized yet.");
+		}
+	}
+	public static void login(String userName,String passWord) {
+//		String s1 = passWord;
+//		String s2 = utils.Encription.encryption(s1);
+		if (SocketHandle.getDaOutputStream() != null) {
+		    SocketHandle.getDaOutputStream().println("request-login,"+userName+","+passWord);
 		} else {
 		    System.err.println("Output stream is not ready. Socket may not be initialized yet.");
 		}
