@@ -11,36 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/mail.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/activation.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/jcalendar-1.2.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/jcommon-1.0.23.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/jfreechart-1.0.19.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/HI/eclipse-workspace/TradingPlatform-LTM/library/mysql-connector-java-5.1.38-bin.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="library/converter-gson-2.9.0.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -62,6 +32,36 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="library/retrofit-2.9.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/activation.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/jcalendar-1.2.2.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/jcommon-1.0.23.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/jfreechart-1.0.19.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/mail.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="library/mysql-connector-java-5.1.38-bin.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

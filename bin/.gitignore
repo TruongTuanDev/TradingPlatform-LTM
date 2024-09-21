@@ -1,6 +1,2 @@
-/app/
-/controller/
-/socket/
-/components/
 /views/
-/utils/
+/datahandle/
