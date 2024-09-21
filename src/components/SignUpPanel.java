@@ -65,7 +65,7 @@ public class SignUpPanel extends JPanel{
 		lbls.setFont(new Font("Times New Roman", Font.PLAIN, 28));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(SignUpPanel.class.getResource("/Item/left-arrow.png")));
+//		lblNewLabel.setIcon(new ImageIcon(SignUpPanel.class.getResource("/Item/left-arrow.png")));
 		lblNewLabel.setBounds(10, 10, 66, 39);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
