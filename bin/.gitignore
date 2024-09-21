@@ -4,3 +4,10 @@
 /components/
 /views/
 /utils/
+/API/
+/Item/
+/dao/
+/datahandle/
+/entities/
+/event/
+/Room/

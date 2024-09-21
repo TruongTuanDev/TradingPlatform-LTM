@@ -39,7 +39,7 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
-					socket = new Socket("localhost", 9999);
+					socket = new Socket("192.168.1.82", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		

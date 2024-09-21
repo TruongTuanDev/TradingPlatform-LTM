@@ -237,7 +237,7 @@ public class SignUpPanel extends JPanel{
 		btnAccepct.setBounds(218, 252, 85, 21);
 		btnAccepct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());	
+				AuthController.register(textUser.getText(),textPassSp.getText(),textEmail.getText());	
 			}
 			});
 		panelAcep.add(btnAccepct);
