@@ -34,8 +34,6 @@ public class SignUpPanel extends JPanel{
 	
 	public SignUpPanel() {
 		initcomponents();
-		
-	
 	}
 	private void initcomponents() {
 		eventSignUp = new Event_Signup();
@@ -51,7 +49,7 @@ public class SignUpPanel extends JPanel{
 		panelSg.setBackground(new Color(255, 255, 255));
 		panelSg.setLayout(null);
 		panel.add(panelSg, "name_415084935774100");
-		//loginXN = new Login_PanelXN();
+//		loginXN = new Login_PanelXN();
 		
 		JPanel panelBa = new JPanel();
 		panelBa.setBackground(new Color(0, 0, 0));
@@ -133,12 +131,11 @@ public class SignUpPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String pscf =  textPasswordCF.getText();
 				String ps = textPassSp.getText();
-				if(pscf.equals(ps)) {		
-					eventSignUp.sendEmail(textPasswordCF, textPassSp, textEmail, textUser);
+				if(pscf.equals(ps)) {	
 					CardLayout cardLayout = (CardLayout) panel.getLayout();
 					cardLayout.next(panel);	
+					eventSignUp.sendEmail(textPasswordCF, textPassSp, textEmail, textUser);				
 					}	
-				
 			}
 		});
 		btnContinue.setForeground(new Color(255, 255, 255));
@@ -240,11 +237,7 @@ public class SignUpPanel extends JPanel{
 		btnAccepct.setBounds(218, 252, 85, 21);
 		btnAccepct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Boolean checkEmail = eventSignUp.checkValidateEmail(textXN);
-				if(checkEmail == true) {
-					AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());
-					JOptionPane.showMessageDialog(null, "Register Success");
-				}
+				AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());	
 			}
 			});
 		panelAcep.add(btnAccepct);

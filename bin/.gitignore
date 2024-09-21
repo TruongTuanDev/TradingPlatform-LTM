@@ -1,8 +1,6 @@
-/components/
-/controller/
 /app/
-/views/
+/controller/
 /socket/
-/event/
-/dao/
+/components/
+/views/
 /utils/

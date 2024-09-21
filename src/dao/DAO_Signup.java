@@ -59,10 +59,4 @@ public class DAO_Signup {
 			}
 		}
 	}
-	public static boolean checkValidateEmail(JTextField textAcept) {
-		if (textAcept.getText().equals(code)) {
-			return true;
-		}
-		return false;
-	}
 }

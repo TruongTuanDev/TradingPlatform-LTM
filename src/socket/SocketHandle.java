@@ -6,13 +6,17 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
 import controller.ResponseReceiver;
+import utils.HandleViewClient;
+import views.LoginView;
 
 public class SocketHandle {
 	public static BufferedReader inputReader;
 	public static PrintWriter outputWriter;
 	public static Socket socket;
 	private ResponseReceiver responseReceiver;
+	private LoginView loginView;
 	
 	public SocketHandle() {
 	}
@@ -39,26 +43,14 @@ public class SocketHandle {
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		
-					while (true) {
-						message = inputReader.readLine();
-						System.out.println("Nhan ve : "+message);
-						if (message.equals("End")) {
-							break;
-						}
-						String[] mesageSlip = message.split(",");
-						switch (mesageSlip[0].trim()) {
-						case "login-succses": {
-							System.out.println("Dang nhap thanh cong");
-							break;
-						}case "login-false" :{
-							System.out.println("Dang nhap that bai");
-							break;
-						}case "register-succses" :{
-							System.out.println("Dang Ki thanh cong");
-							break;
-						}
-						}
-					}
+					 while (true) {
+	                        message = inputReader.readLine();
+	                        System.out.println("Nhận về: " + message);
+	                        if (message.equals("End")) {
+	                            break;
+	                        }
+	                        responseFromServer(message);
+	                    }
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -70,6 +62,38 @@ public class SocketHandle {
 		};	
 		thread.start();
 	}	
+	public void responseFromServer(String message) {
+        String[] messageSplit = message.split(",");
+
+        switch (messageSplit[0].trim()) {
+            case "login-succses": {
+                if (messageSplit[2].equals("admin")) {
+                   
+                } else {
+                  
+                }
+                break;
+            }
+            case "login-false": {
+                System.out.println("Đăng nhập thất bại");
+               
+                break;
+            }
+            case "register-succses": {
+                System.out.println("Đăng ký thành công");
+                HandleViewClient.openView(HandleViewClient.Views.LOGIN);
+                break;
+            }
+            case "username-match": {
+                responseReceiver.onReceiveResponse("username-match");
+                System.out.println("Tên người dùng đã tồn tại");
+                break;
+            }
+            default:
+                System.out.println("Phản hồi không xác định: " + message);
+                break;
+        }
+    }
 	
 
 }
