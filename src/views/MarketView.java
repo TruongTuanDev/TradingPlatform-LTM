@@ -54,7 +54,7 @@ public class MarketView extends JFrame {
         labelId = new JLabel();
         labelId.setForeground(Color.WHITE);
         labelName = new JLabel("Name:");
-        labelName.setForeground(Color.WHITE);
+		labelName.setForeground(Color.WHITE);
         profile.add(labelId);
         profile.add(labelName);
         navBar.add(profile);
@@ -130,6 +130,7 @@ public class MarketView extends JFrame {
                 	String percentChange = table.getValueAt(row, 3).toString();
                 	
                 	OrderView orderView = new OrderView(coinID,symbol,formattedNumber,percentChange);
+                	OrderView.lableUsername.setText(labelName.getText());
                 	orderView.setVisible(true);
             
                 }
