@@ -55,20 +55,19 @@ public class OrderView extends JFrame implements ActionListener{
 
 	public OrderView(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
 		this.coinId = coinId;
-
 		this.symbool = symbool;
 		this.price = price;
 		this.percentChange = percentChange;
+		dataAPI = new DataAPI(); 
+		 SwingUtilities.invokeLater(() -> {
+	            dataAPI.getListCoinTopOrther(this);
+	        });
 		initComponents();	
 
 	}
 
 
 	public OrderView(int coinId) {
-		dataAPI = new DataAPI(); 
-		 SwingUtilities.invokeLater(() -> {
-	            dataAPI.getListCoinTopOrther(this);
-	        });
 		initComponents();
 
 		
@@ -243,7 +242,7 @@ public class OrderView extends JFrame implements ActionListener{
 		txtAmountBuy = new JSpinner();
 		txtAmountBuy.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtAmountBuy.setBounds(73, 66, 212, 23);
-		txtAmountBuy.setValue(value);
+		txtAmountBuy.setValue(0);
 		leftPanel.add(txtAmountBuy);
 		
 		JLabel lblBtc = new JLabel("BTC");

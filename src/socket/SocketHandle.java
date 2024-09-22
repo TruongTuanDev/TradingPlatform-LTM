@@ -42,7 +42,9 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
+
 					socket = new Socket("172.20.10.4", 12345);
+
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		
@@ -91,6 +93,7 @@ public class SocketHandle {
             }
             case "register-success": {
                 System.out.println("Đăng ký thành công");
+                
                 HandleViewClient.openView(HandleViewClient.Views.LOGIN);
                 break;
             }

@@ -11,7 +11,7 @@ public class Run {
 	public static SocketHandle socketHandle;
 
 	public static void main(String[] args) {
-		try {		
+		try {		  
 		socketHandle = new SocketHandle();
 		socketHandle.setUpSocket();
 		HandleViewClient.openView(HandleViewClient.Views.LOGIN);
