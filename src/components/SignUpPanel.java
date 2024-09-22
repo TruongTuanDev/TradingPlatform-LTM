@@ -32,7 +32,8 @@ public class SignUpPanel extends JPanel{
 	private LoginView login;
 	JPanel panelAcep,panelAcept,panel;
 	
-	public SignUpPanel() {
+	public SignUpPanel(LoginView loginView) {
+		this.login = loginView;
 		initcomponents();
 	}
 	private void initcomponents() {

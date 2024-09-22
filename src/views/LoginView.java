@@ -68,7 +68,7 @@ public class LoginView extends JFrame implements ActionListener{
 	}
 	private void initComponents() {
 		
-		panelSP = new SignUpPanel();
+		panelSP = new SignUpPanel(this);
 		panelSP.setBounds(663, 58, 549, 668);
 		panelLg = new JPanel();
 		eventCalender = new Calender();

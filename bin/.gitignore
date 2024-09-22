@@ -1,13 +1,6 @@
-/app/
-/controller/
 /socket/
-/components/
 /views/
-/utils/
-/API/
-/Item/
-/dao/
 /datahandle/
-/entities/
-/event/
-/Room/
+/components/
+/utils/
+/app/

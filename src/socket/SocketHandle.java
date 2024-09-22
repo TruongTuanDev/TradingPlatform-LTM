@@ -7,9 +7,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.SwingUtilities;
+
 import controller.ResponseReceiver;
 import utils.HandleViewClient;
 import views.LoginView;
+import views.MarketView;
 
 public class SocketHandle {
 	public static BufferedReader inputReader;
@@ -66,12 +69,13 @@ public class SocketHandle {
         String[] messageSplit = message.split(",");
 
         switch (messageSplit[0].trim()) {
-            case "login-succses": {
-                if (messageSplit[2].equals("admin")) {
-                   
-                } else {
-                  
-                }
+            case "login-success": {
+            	 System.out.println("Đăng nhập thành công");
+            	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
+                 HandleViewClient.openView(HandleViewClient.Views.MARKET);
+            	 SwingUtilities.invokeLater(() -> {
+                     MarketView.labelName.setText("Name:"+messageSplit[1]);
+ 		        });
                 break;
             }
             case "login-false": {
@@ -79,7 +83,7 @@ public class SocketHandle {
                
                 break;
             }
-            case "register-succses": {
+            case "register-success": {
                 System.out.println("Đăng ký thành công");
                 HandleViewClient.openView(HandleViewClient.Views.LOGIN);
                 break;
