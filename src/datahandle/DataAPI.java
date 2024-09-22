@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import views.MarketView;
+import views.OrderView;
 import entities.*;
 
 public class DataAPI {
@@ -55,7 +56,19 @@ public class DataAPI {
             }
         });
     }
-
+    public void getListCoinTopOrther(OrderView orderview) {
+        fetchMarketDataCoinTop(new DataCallback<List<DataItem>>() {
+            @Override
+            public void onSuccess(List<DataItem> data) {
+                String[][] hotCoinsData = processDataItems(data);
+                orderview.updateHotCoinsTable(hotCoinsData);
+            }
+            @Override
+            public void onFailure(String error) {
+                // Xử lý lỗi nếu cần
+            }
+        });
+    }
     public void getListNewCoin(MarketView marketView) {
         fetchMarketDataNewCoin(new DataCallback<List<DataItem>>() {
             @Override

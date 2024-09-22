@@ -25,7 +25,9 @@ public class MarketView extends JFrame {
     private JTable topVolumeTable;
     private DefaultTableModel topVolumeModel;
   
-
+    public static JLabel labelId;
+    public static JLabel labelName;
+    
     public MarketView() {
         // Set the title of the window
         setTitle("Markets Overview");
@@ -51,7 +53,17 @@ public class MarketView extends JFrame {
         JButton signUpButton = new JButton("Sign Up");
         navBar.add(loginButton);
         navBar.add(signUpButton);
+        JPanel profile = new JPanel();
+        profile.setLayout(new FlowLayout(FlowLayout.RIGHT)); // Đặt layout bên phải
+        profile.setBackground(new Color(24, 26, 27)); // Cài màu nền cho profile panel
 
+        labelId = new JLabel("ID:");
+        labelId.setForeground(Color.WHITE);
+        labelName = new JLabel("Name:");
+        labelName.setForeground(Color.WHITE);
+        profile.add(labelId);
+        profile.add(labelName);
+        navBar.add(profile);
         getContentPane().add(navBar, BorderLayout.NORTH);
 
         // Create the central content panel with horizontal layout
@@ -171,7 +183,6 @@ public class MarketView extends JFrame {
             topGainerModel.addRow(row);
         }
     }
-
     public void updateTopVolumeTable(String[][] topVolumeData) {
         topVolumeModel.setRowCount(0);
         for (String[] row : topVolumeData) {

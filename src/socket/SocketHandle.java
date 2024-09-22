@@ -7,9 +7,12 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import javax.swing.SwingUtilities;
+
 import controller.ResponseReceiver;
 import utils.HandleViewClient;
 import views.LoginView;
+import views.MarketView;
 
 public class SocketHandle {
 	public static BufferedReader inputReader;
@@ -39,7 +42,7 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
-					socket = new Socket("172.20.10.4", 12345);
+					socket = new Socket("192.168.1.82", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		
@@ -66,12 +69,13 @@ public class SocketHandle {
         String[] messageSplit = message.split(",");
 
         switch (messageSplit[0].trim()) {
-            case "login-succses": {
-                if (messageSplit[2].equals("admin")) {
-                   
-                } else {
-                  
-                }
+            case "login-success": {
+            	 System.out.println("Đăng nhập thành công");
+            	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
+                 HandleViewClient.openView(HandleViewClient.Views.MARKET);
+            	 SwingUtilities.invokeLater(() -> {
+                     MarketView.labelName.setText("Name:"+messageSplit[1]);
+ 		        });
                 break;
             }
             case "login-false": {
@@ -79,7 +83,7 @@ public class SocketHandle {
                
                 break;
             }
-            case "register-succses": {
+            case "register-success": {
                 System.out.println("Đăng ký thành công");
                 HandleViewClient.openView(HandleViewClient.Views.LOGIN);
                 break;

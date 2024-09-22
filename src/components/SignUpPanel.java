@@ -32,7 +32,8 @@ public class SignUpPanel extends JPanel{
 	private LoginView login;
 	JPanel panelAcep,panelAcept,panel;
 	
-	public SignUpPanel() {
+	public SignUpPanel(LoginView loginView) {
+		this.login = loginView;
 		initcomponents();
 	}
 	private void initcomponents() {
@@ -65,7 +66,7 @@ public class SignUpPanel extends JPanel{
 		lbls.setFont(new Font("Times New Roman", Font.PLAIN, 28));
 		
 		JLabel lblNewLabel = new JLabel("");
-//		lblNewLabel.setIcon(new ImageIcon(SignUpPanel.class.getResource("/Item/left-arrow.png")));
+		lblNewLabel.setIcon(new ImageIcon(SignUpPanel.class.getResource("/Item/left-arrow.png")));
 		lblNewLabel.setBounds(10, 10, 66, 39);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -237,7 +238,7 @@ public class SignUpPanel extends JPanel{
 		btnAccepct.setBounds(218, 252, 85, 21);
 		btnAccepct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AuthController.register(textPassSp.getText(),textEmail.getText(), textUser.getText());	
+				AuthController.register(textUser.getText(),textPassSp.getText(),textEmail.getText());	
 			}
 			});
 		panelAcep.add(btnAccepct);

@@ -1,5 +1,7 @@
+/socket/
 /views/
 /datahandle/
+<<<<<<< HEAD
 /API/
 /components/
 /controller/
@@ -10,3 +12,8 @@
 /utils/
 /my_interface/
 /Item/
+=======
+/components/
+/utils/
+/app/
+>>>>>>> 02ecc2e3b8a8cb806d8f347700ca6264dfa75827

@@ -14,7 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 import javax.swing.JTextField;
+
+import javax.swing.SwingUtilities;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,12 +33,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class OrderView extends JFrame implements ActionListener{
 
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private static DataAPI dataAPI;
-	public int coinId;
+public class OrderView extends JFrame implements ActionListener{
 	public String symbool;
 	public String price;
 	public String percentChange;
@@ -42,12 +42,37 @@ public class OrderView extends JFrame implements ActionListener{
 	JLabel lblParCoin,lblPriceOder,lbl24hChange;
 	JSpinner txtPriceBuy,txtAmountBuy,txtPriceSell,txtAmountSell;
 
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private static DataAPI dataAPI;
+	public static int coinId;
+	private DefaultTableModel modelDataOtherCoin;
+	
+	public OrderView() {
+	}
+	public int getCoinId() {
+		return coinId;
+	}
+
+
 	public OrderView(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
 		this.coinId = coinId;
+
 		this.symbool = symbool;
 		this.price = price;
 		this.percentChange = percentChange;
 		initComponents();	
+
+	}
+
+
+	public OrderView(int coinId) {
+		dataAPI = new DataAPI(); 
+		 SwingUtilities.invokeLater(() -> {
+	            dataAPI.getListCoinTopOrther(this);
+	        });
+		initComponents();
+
 		
 	}
 	private void bindingData() {
@@ -164,8 +189,8 @@ public class OrderView extends JFrame implements ActionListener{
         contentPane.add(panelPriceOtherCoin);
 
         // Tạo mô hình dữ liệu cho bảng với các cột Name, Last Price, 24h Change
-        String[] dataListOtherCoin = { "Name", "Last Price", "24h Change" };
-        DefaultTableModel modelDataOtherCoin = new DefaultTableModel(dataListOtherCoin, 0); // 0 là số dòng ban đầu
+        String[] dataListOtherCoin = {"ID ","Name", "Last Price", "24h Change" };
+        modelDataOtherCoin = new DefaultTableModel(dataListOtherCoin, 0); // 0 là số dòng ban đầu
 
         // Tạo bảng JTable với mô hình dữ liệu
         JTable tableOtherCoin = new JTable(modelDataOtherCoin);
@@ -175,9 +200,9 @@ public class OrderView extends JFrame implements ActionListener{
         panelPriceOtherCoin.add(scrollPane2, BorderLayout.CENTER);
 
         // Thêm dữ liệu mẫu vào bảng (tùy ý)
-        modelDataOtherCoin.addRow(new Object[]{"Bitcoin", "63400", "+1.5%"});
-        modelDataOtherCoin.addRow(new Object[]{"Ethereum", "4500", "-0.8%"});
-        modelDataOtherCoin.addRow(new Object[]{"BNB", "400", "+2.1%"});
+        modelDataOtherCoin.addRow(new Object[]{"1","Bitcoin", "63400", "+1.5%"});
+        modelDataOtherCoin.addRow(new Object[]{"2","Ethereum", "4500", "-0.8%"});
+        modelDataOtherCoin.addRow(new Object[]{"3","BNB", "400", "+2.1%"});
 		
 		JPanel panelBSOder = new JPanel();
 		panelBSOder.setBounds(299, 460, 714, 216);
@@ -378,4 +403,12 @@ public class OrderView extends JFrame implements ActionListener{
 		            break;
 		    }	
 	}
+
+	 public void updateHotCoinsTable(String[][] topGainerData) {
+		 modelDataOtherCoin.setRowCount(0);
+	        for (String[] row : topGainerData) {
+	        	modelDataOtherCoin.addRow(row);
+	        }
+	    }
 }
+
