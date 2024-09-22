@@ -47,6 +47,7 @@ public class OrderView extends JFrame implements ActionListener{
 	private static DataAPI dataAPI;
 	public static int coinId;
 	private DefaultTableModel modelDataOtherCoin;
+	public static JLabel lableUsername;
 	
 	public OrderView() {
 	}
@@ -81,6 +82,9 @@ public class OrderView extends JFrame implements ActionListener{
 	}
 
 	public void initComponents() {
+		lableUsername = new JLabel();
+		
+		
 		NumberFormat format = NumberFormat.getInstance(Locale.US);
 		Number number = null;
 		try {
@@ -89,7 +93,7 @@ public class OrderView extends JFrame implements ActionListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    double value = number.doubleValue(); 
+	    double value = number.doubleValue();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1304, 713);
 		contentPane = new JPanel();
@@ -97,7 +101,7 @@ public class OrderView extends JFrame implements ActionListener{
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 0, 1290, 113);
@@ -240,6 +244,8 @@ public class OrderView extends JFrame implements ActionListener{
 		lblAmount.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		lblAmount.setBounds(10, 67, 63, 21);
 		leftPanel.add(lblAmount);
+		
+		
 		
 		txtAmountBuy = new JSpinner();
 		txtAmountBuy.setFont(new Font("Times New Roman", Font.PLAIN, 17));
