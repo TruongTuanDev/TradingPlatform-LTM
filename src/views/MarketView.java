@@ -1,8 +1,13 @@
 package views;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import datahandle.DataAPI;
+import entities.DataItem;
+
 import java.awt.*;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class MarketView extends JFrame {
     public static DataAPI dataAPI;
@@ -109,7 +114,16 @@ public class MarketView extends JFrame {
                 if (row >= 0) {
                 	String coinName = table.getValueAt(row, 0).toString();
                 	int coinID = Integer.parseInt(coinName);
-                	OrderView orderView = new OrderView(coinID);
+                	String symbol = table.getValueAt(row, 1).toString();
+                	String price = table.getValueAt(row, 2).toString();
+                	double priceValue = Double.parseDouble(price);
+                	
+                	NumberFormat numberFormat = NumberFormat.getInstance(Locale.US); 
+                	String formattedNumber = numberFormat.format(priceValue);
+                   
+                	String percentChange = table.getValueAt(row, 3).toString();
+                	
+                	OrderView orderView = new OrderView(coinID,symbol,formattedNumber,percentChange);
                 	orderView.setVisible(true);
             
                 }

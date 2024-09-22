@@ -20,8 +20,16 @@ public class DataItem {
     private String last_updated;
     private Quote quote;
     
+    
+    
+    public DataItem(String id, String symbol, Quote quote) {
+		super();
+		this.id = id;
+		this.symbol = symbol;
+		this.quote = quote;
+	}
 
-    public DataItem(String id, String name, String symbol, String slug, double max_supply, double circulating_supply,
+	public DataItem(String id, String name, String symbol, String slug, double max_supply, double circulating_supply,
 			double total_supply, int cmc_rank, Quote quote) {
 		super();
 		this.id = id;

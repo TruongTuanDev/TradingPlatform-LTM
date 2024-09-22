@@ -5,14 +5,20 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import controller.OrderController;
 import datahandle.DataAPI;
 
 import javax.swing.border.LineBorder;
@@ -20,31 +26,46 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class OrderView extends JFrame {
+public class OrderView extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static DataAPI dataAPI;
-	public static int coinId;
+	public int coinId;
+	public String symbool;
+	public String price;
+	public String percentChange;
 	
-	public int getCoinId() {
-		return coinId;
-	}
+	JLabel lblParCoin,lblPriceOder,lbl24hChange;
+	JSpinner txtPriceBuy,txtAmountBuy,txtPriceSell,txtAmountSell;
 
-
-	public void setCoinId(int coinId) {
+	public OrderView(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
 		this.coinId = coinId;
-	}
-
-
-	public OrderView(int coinId) {
-		initComponents();
+		this.symbool = symbool;
+		this.price = price;
+		this.percentChange = percentChange;
+		initComponents();	
 		
+	}
+	private void bindingData() {
+//		lblParCoin.setText(symboool);
+//		lblPriceOder.setText(price);
+//		lbl24hChange.setText(percentChange);		
 	}
 
 	public void initComponents() {
-		this.coinId = coinId;
+		NumberFormat format = NumberFormat.getInstance(Locale.US);
+		Number number = null;
+		try {
+			number = format.parse(price);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    double value = number.doubleValue(); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1304, 713);
 		contentPane = new JPanel();
@@ -59,20 +80,22 @@ public class OrderView extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblParCoin = new JLabel("BTC");
+		lblParCoin = new JLabel("BTC");
 		lblParCoin.setFont(new Font("Times New Roman", Font.BOLD, 25));
-		lblParCoin.setBounds(27, 23, 73, 30);
+		lblParCoin.setBounds(49, 23, 73, 30);
+		lblParCoin.setText(symbool);
 		panel.add(lblParCoin);
 		
 		JLabel lblName = new JLabel("Price Bitcoin");
 		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 13));
-		lblName.setBounds(38, 63, 79, 18);
+		lblName.setBounds(59, 63, 79, 18);
 		panel.add(lblName);
 		
-		JLabel lblPriceOder = new JLabel("62,864.94");
+		lblPriceOder = new JLabel("62,864.94");
 		lblPriceOder.setForeground(new Color(0, 255, 0));
 		lblPriceOder.setFont(new Font("Times New Roman", Font.BOLD, 25));
-		lblPriceOder.setBounds(203, 23, 134, 30);
+		lblPriceOder.setBounds(220, 23, 134, 30);
+		lblPriceOder.setText(price);
 		panel.add(lblPriceOder);
 		
 		JLabel Changescs = new JLabel("24h Change");
@@ -80,10 +103,11 @@ public class OrderView extends JFrame {
 		Changescs.setBounds(391, 31, 79, 18);
 		panel.add(Changescs);
 		
-		JLabel lbl24hChange = new JLabel("2%");
+		lbl24hChange = new JLabel("2%");
 		lbl24hChange.setForeground(new Color(255, 0, 0));
 		lbl24hChange.setFont(new Font("Times New Roman", Font.PLAIN, 13));
 		lbl24hChange.setBounds(391, 63, 79, 18);
+		lbl24hChange.setText(percentChange);
 		panel.add(lbl24hChange);
 		
 		JLabel lblVolumn = new JLabel("20,496");
@@ -108,7 +132,7 @@ public class OrderView extends JFrame {
 		
 		JLabel lblusdt = new JLabel("/USDT");
 		lblusdt.setFont(new Font("Times New Roman", Font.BOLD, 25));
-		lblusdt.setBounds(98, 23, 73, 30);
+		lblusdt.setBounds(137, 23, 73, 30);
 		panel.add(lblusdt);
 		
         JPanel panelPriceOder = new JPanel();
@@ -174,9 +198,11 @@ public class OrderView extends JFrame {
 		lblNewLabel.setBounds(10, 26, 53, 21);
 		leftPanel.add(lblNewLabel);
 		
-		JSpinner txtPriceBuy = new JSpinner();
+		txtPriceBuy = new JSpinner();
 		txtPriceBuy.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtPriceBuy.setBounds(73, 25, 212, 23);
+		
+		txtPriceBuy.setValue(value);
 		leftPanel.add(txtPriceBuy);
 		
 		JLabel rgrbr = new JLabel("USDT");
@@ -191,9 +217,10 @@ public class OrderView extends JFrame {
 		lblAmount.setBounds(10, 67, 63, 21);
 		leftPanel.add(lblAmount);
 		
-		JSpinner txtAmountBuy = new JSpinner();
+		txtAmountBuy = new JSpinner();
 		txtAmountBuy.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtAmountBuy.setBounds(73, 66, 212, 23);
+		txtAmountBuy.setValue(value);
 		leftPanel.add(txtAmountBuy);
 		
 		JLabel lblBtc = new JLabel("BTC");
@@ -239,10 +266,12 @@ public class OrderView extends JFrame {
 		leftPanel.add(lblCoinMax_2);
 		
 		JButton btnBuy = new JButton("BUY");
+		
 		btnBuy.setBackground(new Color(0, 255, 64));
 		btnBuy.setForeground(new Color(255, 255, 255));
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		btnBuy.setBounds(10, 185, 329, 21);
+		btnBuy.setBounds(10, 177, 329, 29);
+		btnBuy.setActionCommand("BUY");
 		leftPanel.add(btnBuy);
 
 		JPanel rightPanel = new JPanel();
@@ -262,12 +291,13 @@ public class OrderView extends JFrame {
 		lblAmount_1.setBounds(10, 67, 66, 21);
 		rightPanel.add(lblAmount_1);
 		
-		JSpinner txtPriceSell = new JSpinner();
+		txtPriceSell = new JSpinner();
 		txtPriceSell.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtPriceSell.setBounds(73, 25, 212, 23);
+		txtPriceSell.setValue(value);
 		rightPanel.add(txtPriceSell);
 		
-		JSpinner txtAmountSell = new JSpinner();
+		txtAmountSell = new JSpinner();
 		txtAmountSell.setFont(new Font("Times New Roman", Font.PLAIN, 17));
 		txtAmountSell.setBounds(73, 65, 212, 23);
 		rightPanel.add(txtAmountSell);
@@ -299,13 +329,13 @@ public class OrderView extends JFrame {
 		JLabel bfbfbUSD_1 = new JLabel("USDT");
 		bfbfbUSD_1.setForeground(Color.WHITE);
 		bfbfbUSD_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		bfbfbUSD_1.setBounds(294, 121, 45, 13);
+		bfbfbUSD_1.setBounds(302, 143, 45, 13);
 		rightPanel.add(bfbfbUSD_1);
 		
 		JLabel lblCoinMax_1 = new JLabel("BTC");
 		lblCoinMax_1.setForeground(Color.WHITE);
 		lblCoinMax_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblCoinMax_1.setBounds(294, 144, 45, 13);
+		lblCoinMax_1.setBounds(302, 120, 45, 13);
 		rightPanel.add(lblCoinMax_1);
 		
 		JLabel lblAvbUSD_1 = new JLabel("1000");
@@ -320,16 +350,32 @@ public class OrderView extends JFrame {
 		lblCoinMaxSell.setBounds(219, 144, 45, 13);
 		rightPanel.add(lblCoinMaxSell);
 		
-		JButton btnBuy_1 = new JButton("BUY");
-		btnBuy_1.setForeground(Color.WHITE);
-		btnBuy_1.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		btnBuy_1.setBackground(new Color(255, 0, 0));
-		btnBuy_1.setBounds(10, 185, 329, 21);
-		rightPanel.add(btnBuy_1);
+		JButton btnSell = new JButton("SELL");
+		btnSell.setForeground(Color.WHITE);
+		btnSell.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		btnSell.setBackground(new Color(255, 0, 0));
+		btnSell.setBounds(10, 177, 329, 29);
+		btnSell.setActionCommand("SELL");
+		rightPanel.add(btnSell);
 	}
-	/**
-	 * Create the frame.
-	 */
-	
-
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 String command = e.getActionCommand();
+		    double quantity_curency = (double) txtAmountBuy.getValue();
+		    String symbol = symbool;
+		    LocalDateTime currentDateTime = LocalDateTime.now();
+		    String buyDate = currentDateTime.toString();
+		    String userName="tuan";
+		    double priceBuy = (double) txtPriceBuy.getValue() ;
+		    double quantityUSD = priceBuy * quantity_curency;
+		    switch (command) {
+		        case "BUY":
+//		        	double quantity = text
+		            OrderController.buyCoin(priceBuy, quantityUSD, quantity_curency, symbol, buyDate,userName);
+		            break;
+		        case "SELL":
+		          
+		            break;
+		    }	
+	}
 }

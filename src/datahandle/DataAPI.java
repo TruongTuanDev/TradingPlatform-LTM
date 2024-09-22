@@ -33,9 +33,10 @@ public class DataAPI {
         for (int i = 0; i < dataItems.size(); i++) {
             DataItem item = dataItems.get(i);
             processedData[i][0] = item.getId();
-            processedData[i][1] = item.getName();
+            processedData[i][1] = item.getSymbol();
             processedData[i][2] = String.format("%.7f", item.getQuote().getUsd().getPrice());
             processedData[i][3] = String.format("%.2f", item.getQuote().getUsd().getPercent_change_24h())+"%";
+//            processedData[i][4] = String.format("%.2f", item.getSymbol());
         }
 
         return processedData;

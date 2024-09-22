@@ -1,2 +1,12 @@
 /views/
 /datahandle/
+/API/
+/components/
+/controller/
+/dao/
+/entities/
+/event/
+/socket/
+/utils/
+/my_interface/
+/Item/
