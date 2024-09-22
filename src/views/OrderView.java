@@ -292,15 +292,22 @@ public class OrderView extends JFrame implements ActionListener{
 		btnBuy.setForeground(new Color(255, 255, 255));
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnBuy.setBounds(10, 177, 329, 29);
-//		btnBuy.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				System.out.println("vào rồi 1");
-//				
-//			}
-//		});
-		btnBuy.setActionCommand("BUY");
+		btnBuy.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ok3");
+				double quantity_curency = ((Number) txtAmountBuy.getValue()).doubleValue();
+			    String symbol = symbool;
+			    LocalDateTime currentDateTime = LocalDateTime.now();
+			    String buyDate = currentDateTime.toString();
+			    String userName="tuan";
+			    double priceBuy = (double) txtPriceBuy.getValue() ;
+			    double quantityUSD = priceBuy * quantity_curency;
+			    OrderController.buyCoin(priceBuy, quantityUSD, quantity_curency, symbol, buyDate,userName);
+			}
+		});
+	
 		leftPanel.add(btnBuy);
 
 		JPanel rightPanel = new JPanel();
@@ -390,19 +397,12 @@ public class OrderView extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 String command = e.getActionCommand();
-		 System.out.println("ok3");
-		    double quantity_curency = (double) txtAmountBuy.getValue();
-		    String symbol = symbool;
-		    LocalDateTime currentDateTime = LocalDateTime.now();
-		    String buyDate = currentDateTime.toString();
-		    String userName="tuan";
-		    double priceBuy = (double) txtPriceBuy.getValue() ;
-		    double quantityUSD = priceBuy * quantity_curency;
+		 
 		    switch (command) {
 		        case "BUY":
 		        	System.out.println("ok2");
-		        	System.out.println(priceBuy+quantityUSD+ quantity_curency+symbol+buyDate+userName);
-		            OrderController.buyCoin(priceBuy, quantityUSD, quantity_curency, symbol, buyDate,userName);
+//		        	System.out.println(priceBuy+quantityUSD+ quantity_curency+symbol+buyDate+userName);
+		            
 		            break;
 		        case "SELL":
 		          

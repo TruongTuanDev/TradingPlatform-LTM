@@ -9,7 +9,6 @@ import views.LoginView;
 public class Run {
 	//eclipse-workspace\JavaNam3\TradingPlatform
 	public static SocketHandle socketHandle;
-
 	public static void main(String[] args) {
 		try {		  
 		socketHandle = new SocketHandle();
