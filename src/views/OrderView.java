@@ -15,8 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import javax.swing.JTextField;
-
 import javax.swing.SwingUtilities;
 
 import javax.swing.border.EmptyBorder;
@@ -291,11 +289,18 @@ public class OrderView extends JFrame implements ActionListener{
 		leftPanel.add(lblCoinMax_2);
 		
 		JButton btnBuy = new JButton("BUY");
-		
 		btnBuy.setBackground(new Color(0, 255, 64));
 		btnBuy.setForeground(new Color(255, 255, 255));
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnBuy.setBounds(10, 177, 329, 29);
+//		btnBuy.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				System.out.println("vào rồi 1");
+//				
+//			}
+//		});
 		btnBuy.setActionCommand("BUY");
 		leftPanel.add(btnBuy);
 
@@ -386,6 +391,7 @@ public class OrderView extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 String command = e.getActionCommand();
+		 System.out.println("ok3");
 		    double quantity_curency = (double) txtAmountBuy.getValue();
 		    String symbol = symbool;
 		    LocalDateTime currentDateTime = LocalDateTime.now();
@@ -395,7 +401,8 @@ public class OrderView extends JFrame implements ActionListener{
 		    double quantityUSD = priceBuy * quantity_curency;
 		    switch (command) {
 		        case "BUY":
-//		        	double quantity = text
+		        	System.out.println("ok2");
+		        	System.out.println(priceBuy+quantityUSD+ quantity_curency+symbol+buyDate+userName);
 		            OrderController.buyCoin(priceBuy, quantityUSD, quantity_curency, symbol, buyDate,userName);
 		            break;
 		        case "SELL":

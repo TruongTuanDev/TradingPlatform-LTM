@@ -42,7 +42,7 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
-					socket = new Socket("192.168.1.82", 12345);
+					socket = new Socket("172.20.10.4", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 					String message;		
@@ -70,12 +70,18 @@ public class SocketHandle {
 
         switch (messageSplit[0].trim()) {
             case "login-success": {
-            	 System.out.println("Đăng nhập thành công");
+            	 System.out.println("Đăng nhập thành công"+messageSplit);
             	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
                  HandleViewClient.openView(HandleViewClient.Views.MARKET);
-            	 SwingUtilities.invokeLater(() -> {
-                     MarketView.labelName.setText("Name:"+messageSplit[1]);
- 		        });
+                 if(messageSplit[1] != null) {
+                	 String userName = messageSplit[1];
+                        	 SwingUtilities.invokeLater(() -> {          	
+                                 MarketView.labelName.setText("Name: "+userName);
+             		        });
+                 }else {
+                	 MarketView.labelName.setText("Name: Anonymus");
+                 }
+                
                 break;
             }
             case "login-false": {
