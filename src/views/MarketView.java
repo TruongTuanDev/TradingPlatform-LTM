@@ -33,12 +33,14 @@ public class MarketView extends JPanel {
     public MarketView() {
         lableBalance = new JLabel();
 
-        // Bỏ setTitle, setSize, setDefaultCloseOperation và setLocationRelativeTo
-
         setLayout(new BorderLayout());
-
-        // Set background color for the entire panel
         setBackground(new Color(255, 0, 0)); // Màu đỏ
+
+        // Khởi tạo DefaultTableModel
+        hotCoinsModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
+        newListingModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
+        topGainerModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
+        topVolumeModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
 
         // Create top navigation bar
         JPanel navBar = new JPanel();
@@ -69,35 +71,16 @@ public class MarketView extends JPanel {
         JPanel contentPanel = new JPanel(new GridLayout(1, 4));
         contentPanel.setBackground(new Color(255, 215, 0)); // Màu vàng
 
-        // Add tables to contentPanel
-        contentPanel.add(createTableSection("Hot Coins", new String[]{"ID", "Coin", "Price", "Change"}, new String[][]{
-                {"BNB", "$574.40", "+2.66%"},
-                {"BTC", "$63.73K", "+2.66%"},
-                {"ETH", "$2.55K", "+5.61%"}
-        }));
-
-        contentPanel.add(createTableSection("New Listing", new String[]{"ID", "Coin", "Price", "Change"}, new String[][]{
-                {"1MBABYDC", "$0.0023316", "+5.08%"},
-                {"NEIRO", "$0.00091001", "-1.26%"},
-                {"TURBO", "$0.0064", "+23.31%"}
-        }));
-
-        contentPanel.add(createTableSection("Top Gainer Coin", new String[]{"ID", "Coin", "Price", "Change"}, new String[][]{
-                {"FIDA", "$0.368", "+55.01%"},
-                {"SXP", "$0.3242", "+50.23%"},
-                {"ARK", "$0.4209", "+29.75%"}
-        }));
-
-        contentPanel.add(createTableSection("Top Volume Coin", new String[]{"ID", "Coin", "Price", "Change"}, new String[][]{
-                {"BTC", "$63.73K", "+2.66%"},
-                {"ETH", "$2.55K", "+5.61%"},
-                {"SOL", "$150.18", "+8.07%"}
-        }));
+        // Add tables to contentPanel with initialized models
+        contentPanel.add(createTableSection("Hot Coins", hotCoinsModel));
+        contentPanel.add(createTableSection("New Listing", newListingModel));
+        contentPanel.add(createTableSection("Top Gainer Coin", topGainerModel));
+        contentPanel.add(createTableSection("Top Volume Coin", topVolumeModel));
 
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    private JPanel createTableSection(String title, String[] columns, String[][] data) {
+    private JPanel createTableSection(String title, DefaultTableModel model) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0, 102, 204)); // Màu xanh dương đậm
 
@@ -106,14 +89,10 @@ public class MarketView extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         panel.add(titleLabel, BorderLayout.NORTH);
 
-        // Tạo bảng và model
-        JTable table = new JTable(new DefaultTableModel(data, columns));
-        table.setBackground(new Color(0, 0, 0)); // Màu vàng
-        table.setForeground(new Color(255, 255, 255)); // Màu chữ đen
+        JTable table = new JTable(model); // Sử dụng model đã khởi tạo
+        table.setBackground(new Color(0, 0, 0)); 
+        table.setForeground(new Color(255, 255, 255)); 
         table.setRowHeight(30);
-        table.getColumnModel().getColumn(0).setPreferredWidth(50);
-        table.getColumnModel().getColumn(1).setPreferredWidth(170);
-        table.getColumnModel().getColumn(2).setPreferredWidth(100);
 
         // Định dạng màu cột thay đổi giá
         table.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
@@ -132,7 +111,6 @@ public class MarketView extends JPanel {
                 return c;
             }
         });
-
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int row = table.rowAtPoint(evt.getPoint());
@@ -193,18 +171,20 @@ public class MarketView extends JPanel {
         dataAPI = new DataAPI();
         
         SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Markets Overview");
-            frame.setSize(1113, 624);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLocationRelativeTo(null);
+        	 JFrame frame = new JFrame("Markets Overview");
+             frame.setSize(1113, 624);
+             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+             frame.setLocationRelativeTo(null);
 
-            MarketView dashboard = new MarketView();
-            frame.add(dashboard);
-            dataAPI.getListCoinTop(dashboard);
-            dataAPI.getListGainerCoin(dashboard);
-            dataAPI.getListVolumeCoin(dashboard);
-            dataAPI.getListNewCoin(dashboard);
-            frame.setVisible(true);
+             MarketView dashboard = new MarketView();  // Sử dụng JPanel
+             frame.add(dashboard);  // Thêm JPanel vào JFrame
+
+             dataAPI.getListCoinTop(dashboard);
+             dataAPI.getListGainerCoin(dashboard);
+             dataAPI.getListVolumeCoin(dashboard);
+             dataAPI.getListNewCoin(dashboard);
+
+             frame.setVisible(true);  // Hiển thị JFrame chứa JPanel
         });
     }
 }
