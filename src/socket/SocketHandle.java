@@ -3,16 +3,22 @@ package socket;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import controller.ResponseReceiver;
+import entities.Wallet;
 import utils.HandleViewClient;
 import views.LoginView;
 import views.MarketView;
+import views.TransactionView;
 
 public class SocketHandle {
 	public static BufferedReader inputReader;
@@ -20,6 +26,7 @@ public class SocketHandle {
 	public static Socket socket;
 	private ResponseReceiver responseReceiver;
 	private LoginView loginView;
+	private ObjectInputStream objectIn;
 	
 	public SocketHandle() {
 	}
@@ -42,14 +49,15 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
-					socket = new Socket("172.20.10.3", 12345);
+					socket = new Socket("172.20.10.4", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
-					String message;		
+					objectIn = new ObjectInputStream(socket.getInputStream());
+					String message;
 					 while (true) {
 	                        message = inputReader.readLine();
 	                        System.out.println("Nhận về: " + message);
-	                        if (message.equals("End")) {
+	                        if (message==null) {
 	                            break;
 	                        }
 	                        responseFromServer(message);
@@ -60,44 +68,100 @@ public class SocketHandle {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+				} 
 			} 
 		};	
 		thread.start();
 	}	
 	public void responseFromServer(String message) {
         String[] messageSplit = message.split(",");
-
         switch (messageSplit[0].trim()) {
-            case "login-success": {
-            	 System.out.println("Đăng nhập thành công"+messageSplit);
-            	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
-                 HandleViewClient.openView(HandleViewClient.Views.MARKET);
-                 if(messageSplit[1] != null) {
-                	 String userName = messageSplit[1];
-                        	 SwingUtilities.invokeLater(() -> {          	
-                                 MarketView.labelName.setText("Name: "+userName);
-             		        });
-                 }else {
-                	 MarketView.labelName.setText("Name: Anonymus");
-                 }
-                
-                break;
-            }
-            case "login-false": {
-                System.out.println("Đăng nhập thất bại");
-               
-                break;
-            }
-            case "register-success": {
-                System.out.println("Đăng ký thành công");
-                
-                HandleViewClient.openView(HandleViewClient.Views.LOGIN);
-                break;
-            }
+        case "login-success": {
+			JOptionPane.showMessageDialog(null, "Đăng nhập thành công");          	 
+        	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
+             HandleViewClient.openView(HandleViewClient.Views.MARKET);
+             if(messageSplit[1] != null && messageSplit[2] != null) {
+            	 String userName = messageSplit[1];
+            	 String balance = messageSplit[2];
+                    	 SwingUtilities.invokeLater(() -> {          	
+                             MarketView.labelName.setText(userName);
+                             MarketView.lableBalance.setText(balance);
+                             
+         		        });
+}else {
+            	 MarketView.labelName.setText("Name: Anonymus");
+             }
+            
+            break;
+        }
+        case "login-false": {
+			JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");          	 
+            System.out.println("Đăng nhập thất bại");
+           
+            break;
+        }
+        case "register-success": {
+            System.out.println("Đăng ký thành công");
+			JOptionPane.showMessageDialog(null, "Đăng ký thành công");          	 
+            HandleViewClient.openView(HandleViewClient.Views.LOGIN);
+            break;
+        } case "register-false": {
+            System.out.println("Đăng ký thất bại");
+			JOptionPane.showMessageDialog(null, "Đăng ký thất bại");          	 
+            break;
+        }
+        case "buy-success": {
+            System.out.println("Mua token thành công");
+			JOptionPane.showMessageDialog(null, "Mua token thành công");          	 
+            break;
+        }case "sell-success": {
+            System.out.println("Bán token thành công");
+			JOptionPane.showMessageDialog(null, "Bán token thành công");          	 
+            break;
+        } case "buy-false": {
+            System.out.println("Mua token thất bại");
+			JOptionPane.showMessageDialog(null, "Mua token thất bại");          	 
+            break;
+        }case "sell-false": {
+            System.out.println("Bán token thất bại");
+			JOptionPane.showMessageDialog(null, "Bán token thất bại");          	 
+            break;
+        }case "diposit-success": {
+            System.out.println("Nạp tiền thành công");
+			JOptionPane.showMessageDialog(null, "Nạp tiền thành công");   
+			TransactionView.txtBalance.setText(messageSplit[1]);
+			
+            break;
+        } case "diposit-false": {
+            System.out.println("Nạp tiền thất bại");
+			JOptionPane.showMessageDialog(null, "Số tiền nạp không hợp lệ");          	 
+            break;
+        }case "withdraw-success": {
+            System.out.println("Rút tiền thành công");
+			JOptionPane.showMessageDialog(null, "Rút tiền thành công"); 
+			TransactionView.txtBalance.setText(messageSplit[1]);
+            break;
+        } case "withdraw-false": {
+            System.out.println("Rút tiền thất bại");
+			JOptionPane.showMessageDialog(null, "Số dư không đủ");  
+            break;
+        }case "Balance-success": {
+            System.out.println(messageSplit[1]);
+            TransactionView.txtBalance.setText(messageSplit[1]);        	 
+            break;
+        }
             case "username-match": {
-                responseReceiver.onReceiveResponse("username-match");
-                System.out.println("Tên người dùng đã tồn tại");
+            	try {
+					List<Wallet> walletList = (List<Wallet>) objectIn.readObject();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//                responseReceiver.onReceiveResponse("username-match");
+//                System.out.println("Tên người dùng đã tồn tại");
                 break;
             }
             default:

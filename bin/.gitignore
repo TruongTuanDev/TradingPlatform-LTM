@@ -1,19 +1,6 @@
-/socket/
 /views/
-/datahandle/
-<<<<<<< HEAD
-/API/
-/components/
+/utils/
 /controller/
-/dao/
-/entities/
-/event/
 /socket/
-/utils/
-/my_interface/
-/Item/
-=======
-/components/
-/utils/
+/entities/
 /app/
->>>>>>> 02ecc2e3b8a8cb806d8f347700ca6264dfa75827

@@ -10,8 +10,6 @@ public class AuthController {
 		SocketHandle.getDaOutputStream().println("request-register,"+userName+","+s1+","+email);
 	}
 	public static void login(String userName,String passWord) {
-//		String s1 = passWord;
-//		String s2 = utils.Encription.encryption(s1);
 		if (SocketHandle.getDaOutputStream() != null) {
 		    SocketHandle.getDaOutputStream().println("request-login,"+userName+","+passWord);
 		} else {

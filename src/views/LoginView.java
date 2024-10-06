@@ -55,14 +55,14 @@ public class LoginView extends JFrame implements ActionListener{
 		lblNewLabel_8.setBounds(216, 426, 207, 39);
 		panelBackground.add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("Shop without limits with our app");
+		JLabel lblNewLabel_9 = new JLabel("Trade cryptocurrencies with ease on our platform");
 		lblNewLabel_9.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblNewLabel_9.setBounds(178, 486, 285, 24);
+		lblNewLabel_9.setBounds(150, 486, 400, 24);
 		panelBackground.add(lblNewLabel_9);
-		
-		JLabel lblNewLabel_9_1 = new JLabel("where you can shop anytime, anywhere!");
+
+		JLabel lblNewLabel_9_1 = new JLabel("where security and real-time transactions are guaranteed!");
 		lblNewLabel_9_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblNewLabel_9_1.setBounds(152, 520, 351, 24);
+		lblNewLabel_9_1.setBounds(130, 520, 500, 24);
 		panelBackground.add(lblNewLabel_9_1);
 	
 	}
@@ -224,8 +224,8 @@ public class LoginView extends JFrame implements ActionListener{
 		lableDate.setBounds(54, 5, 187, 40);
 		panel.add(lableDate);
 		
-		JLabel lblNewLabel_10 = new JLabel("TSHOP");
-		lblNewLabel_10.setBounds(873, 10, 108, 40);
+		JLabel lblNewLabel_10 = new JLabel("Double2T");
+		lblNewLabel_10.setBounds(873, 10, 200, 40);
 		panel.add(lblNewLabel_10);
 		lblNewLabel_10.setFont(new Font("Harrington", Font.PLAIN, 30));
 		lblNewLabel_10.setForeground(new Color(255, 0, 0));
@@ -235,9 +235,6 @@ public class LoginView extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()== btnLogin) {
 			AuthController.login(textUser.getText(), textPassword.getText());
-//			Controller.HandleViewClient.sendAccount(textUser.getText(), textPassword.getText());
-//			eventLogin.checkLogin(textUser, textPassword);
-//			this.setVisible(false);
 		}else if(e.getSource()== btnSignUp) {
 			panelLg.setVisible(false);
 			panelSP.setVisible(true);

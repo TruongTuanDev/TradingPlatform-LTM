@@ -27,12 +27,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class OrderView extends JFrame implements ActionListener{
+public class OrderView extends JFrame{
 	public String symbool;
 	public String price;
 	public String percentChange;
@@ -45,7 +46,8 @@ public class OrderView extends JFrame implements ActionListener{
 	private static DataAPI dataAPI;
 	public static int coinId;
 	private DefaultTableModel modelDataOtherCoin;
-	public static JLabel lableUsername;
+	public static JLabel lableUsername,lblAvbUSD;
+	private JButton btnTransaction;
 	
 	public OrderView() {
 	}
@@ -105,6 +107,46 @@ public class OrderView extends JFrame implements ActionListener{
 		panel.setBounds(0, 0, 1290, 113);
 		contentPane.add(panel);
 		panel.setLayout(null);
+		
+		btnTransaction = new JButton("Deposit/Withdraw");
+		btnTransaction.setBounds(1100, 23, 180, 30);
+		btnTransaction.setBackground(new Color(0, 102, 204)); // Màu xanh đậm hơn
+		btnTransaction.setFont(new Font("Times New Roman", Font.BOLD, 17)); // Chữ đậm hơn
+		btnTransaction.setForeground(Color.WHITE);
+		btnTransaction.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TransactionView  transactionView = new TransactionView();
+				TransactionView.lblAccountId.setText(lableUsername.getText());
+				transactionView.setVisible(true);
+			}
+		});
+
+		// Bo góc nút
+		btnTransaction.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2, true)); // Viền trắng, bo tròn
+
+		// Hiệu ứng hover
+		btnTransaction.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        btnTransaction.setBackground(new Color(51, 153, 255));
+		        // Thay đổi màu khi hover
+		    }
+
+		    @Override
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        btnTransaction.setBackground(new Color(0, 102, 204)); // Trả lại màu ban đầu khi không hover
+		    }
+		});
+
+		// Hiệu ứng bo góc
+		btnTransaction.setFocusPainted(false); // Loại bỏ viền mặc định khi nhấn vào
+		btnTransaction.setOpaque(true);
+		btnTransaction.setContentAreaFilled(true);
+
+		panel.add(btnTransaction);
+
 		
 		lblParCoin = new JLabel("BTC");
 		lblParCoin.setFont(new Font("Times New Roman", Font.BOLD, 25));
@@ -281,10 +323,10 @@ public class OrderView extends JFrame implements ActionListener{
 		lblCoinMax.setBounds(294, 144, 45, 13);
 		leftPanel.add(lblCoinMax);
 		
-		JLabel lblAvbUSD = new JLabel("1000");
+		lblAvbUSD = new JLabel();
 		lblAvbUSD.setForeground(Color.WHITE);
 		lblAvbUSD.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblAvbUSD.setBounds(219, 121, 45, 13);
+		lblAvbUSD.setBounds(180, 121, 100, 13);
 		leftPanel.add(lblAvbUSD);
 		
 		JLabel lblCoinMax_2 = new JLabel("0.356");
@@ -298,19 +340,18 @@ public class OrderView extends JFrame implements ActionListener{
 		btnBuy.setForeground(new Color(255, 255, 255));
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnBuy.setBounds(10, 177, 329, 29);
-		btnBuy.addActionListener(new ActionListener() {
-			
+		btnBuy.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("ok3");
-				double quantity_curency = ((Number) txtAmountBuy.getValue()).doubleValue();
+				double quantity_order = ((Number) txtAmountBuy.getValue()).doubleValue();
 			    String symbol = symbool;
 			    LocalDateTime currentDateTime = LocalDateTime.now();
 			    String buyDate = currentDateTime.toString();
-			    String userName="tuan";
-			    double priceBuy = (double) txtPriceBuy.getValue() ;
-			    double quantityUSD = priceBuy * quantity_curency;
-			    OrderController.buyCoin(priceBuy, quantityUSD, quantity_curency, symbol, buyDate,userName);
+			    String userName=lableUsername.getText();
+			    double priceBuy =((Number) txtPriceBuy.getValue()).doubleValue();;
+			    double quantityUSD = priceBuy * quantity_order;
+			    OrderController.buyCoin(priceBuy, quantityUSD, quantity_order, symbol, buyDate,userName);
 			}
 		});
 	
@@ -397,23 +438,22 @@ public class OrderView extends JFrame implements ActionListener{
 		btnSell.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnSell.setBackground(new Color(255, 0, 0));
 		btnSell.setBounds(10, 177, 329, 29);
-		btnSell.setActionCommand("SELL");
+		btnSell.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ok3");
+				double quantity_order = ((Number) txtAmountSell.getValue()).doubleValue();
+			    String symbol = symbool;
+			    LocalDateTime currentDateTime = LocalDateTime.now();
+			    String buyDate = currentDateTime.toString();
+			    String userName=lableUsername.getText();
+			    double priceSell =((Number) txtPriceSell.getValue()).doubleValue();;
+			    double quantityUSD = priceSell * quantity_order;
+			    OrderController.sellCoin(priceSell, quantityUSD, quantity_order, symbol, buyDate,userName);
+			}
+		});
 		rightPanel.add(btnSell);
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		 String command = e.getActionCommand();
-		 
-		    switch (command) {
-		        case "BUY":
-		        	System.out.println("ok2");
-//		        	System.out.println(priceBuy+quantityUSD+ quantity_curency+symbol+buyDate+userName);
-		            
-		            break;
-		        case "SELL":
-		          
-		            break;
-		    }	
 	}
 
 	 public void updateHotCoinsTable(String[][] topGainerData) {
