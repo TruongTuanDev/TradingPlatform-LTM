@@ -144,10 +144,7 @@ public class OrderView extends JFrame{
 		btnTransaction.setFocusPainted(false); // Loại bỏ viền mặc định khi nhấn vào
 		btnTransaction.setOpaque(true);
 		btnTransaction.setContentAreaFilled(true);
-
 		panel.add(btnTransaction);
-
-		
 		lblParCoin = new JLabel("BTC");
 		lblParCoin.setFont(new Font("Times New Roman", Font.BOLD, 25));
 		lblParCoin.setBounds(49, 23, 73, 30);

@@ -9,10 +9,11 @@ public class HandleViewClient {
 	public static LoginView loginView;
 	public static SignUpPanel loginPanelSignup;
 	public static MarketView maketView;
+	public static MainView mainView;
 	public static DataAPI dataAPI;
 
 	public static enum Views{	
-		LOGIN,LOGINPANELSIGNUP,MARKET
+		LOGIN,LOGINPANELSIGNUP,MARKET,MAINVIEW
 	}
 	public static void closeView(Views viewName) {
 		if(viewName != null) {
@@ -44,6 +45,18 @@ public class HandleViewClient {
 		            dataAPI.getListVolumeCoin(maketView);
 		            dataAPI.getListNewCoin(maketView);
 		            maketView.setVisible(true);
+		        });
+				break;
+			}case MAINVIEW: {
+				dataAPI = new DataAPI();
+		        SwingUtilities.invokeLater(() -> {
+		        	mainView = new MainView();
+		        	maketView = new MarketView();
+		            dataAPI.getListCoinTop(maketView);
+		            dataAPI.getListGainerCoin(maketView);
+		            dataAPI.getListVolumeCoin(maketView);
+		            dataAPI.getListNewCoin(maketView);
+		            mainView.setVisible(true);
 		        });
 				break;
 			}

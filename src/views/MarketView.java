@@ -183,7 +183,6 @@ public class MarketView extends JPanel {
              dataAPI.getListGainerCoin(dashboard);
              dataAPI.getListVolumeCoin(dashboard);
              dataAPI.getListNewCoin(dashboard);
-
              frame.setVisible(true);  // Hiển thị JFrame chứa JPanel
         });
     }

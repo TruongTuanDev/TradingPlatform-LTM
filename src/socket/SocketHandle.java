@@ -52,7 +52,7 @@ public class SocketHandle {
 					socket = new Socket("localhost", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
-					objectIn = new ObjectInputStream(socket.getInputStream());
+//					objectIn = new ObjectInputStream(socket.getInputStream());
 					String message;
 					 while (true) {
 	                        message = inputReader.readLine();
@@ -79,13 +79,13 @@ public class SocketHandle {
         case "login-success": {
 			JOptionPane.showMessageDialog(null, "Đăng nhập thành công");          	 
         	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
-             HandleViewClient.openView(HandleViewClient.Views.MARKET);
-             if(messageSplit[1] != null && messageSplit[2] != null) {
+             HandleViewClient.openView(HandleViewClient.Views.MAINVIEW);
+             if(messageSplit[1] != null) {
             	 String userName = messageSplit[1];
-            	 String balance = messageSplit[2];
+//            	 String balance = messageSplit[2];
                     	 SwingUtilities.invokeLater(() -> {          	
                              MarketView.labelName.setText(userName);
-                             MarketView.lableBalance.setText(balance);
+//                             MarketView.lableBalance.setText(balance);
                              
          		        });
 }else {
