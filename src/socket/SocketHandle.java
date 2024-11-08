@@ -44,7 +44,7 @@ public class SocketHandle {
 	public static PrintWriter getDaOutputStream() {
 		return outputWriter;
 	}
-	public void setUpSocket() {
+	public void setUpSocket() {  
 		Thread thread = new Thread() {
 			@Override
 			public void run() {
@@ -169,6 +169,4 @@ public class SocketHandle {
                 break;
         }
     }
-	
-
 }
