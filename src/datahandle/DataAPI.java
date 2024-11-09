@@ -44,6 +44,20 @@ public class DataAPI {
 
         return processedData;
     }
+    private String[][] processMyToken(List<Token> dataItems) {
+        String[][] processedData = new String[dataItems.size()][4];
+
+        for (int i = 0; i < dataItems.size(); i++) {
+        	Token item = dataItems.get(i);
+            processedData[i][0] = item.getToken_id();
+            processedData[i][1] = item.getSymbol();
+            processedData[i][2] = String.format("%.7f", item.getCurrent_price());
+            processedData[i][3] = String.format("%.2f", item.getCurrent_price())+"%";
+//            processedData[i][4] = String.format("%.2f", item.getSymbol());
+        }
+
+        return processedData;
+    }
     public void getListCoinTop(MarketView marketView) {
         fetchMarketDataCoinTop(new DataCallback<List<DataItem>>() {
             @Override
@@ -71,9 +85,8 @@ public class DataAPI {
             }
         });
     }
-    public void getListMyCoin(MarketView marketView) {
-    	
-    	 String[][] newCoinsData = processDataItems(SocketHandle.receivedTokenList);
+    public void getListMyCoin(MarketView marketView) {   	
+    	 String[][] newCoinsData = processMyToken(SocketHandle.receivedTokenList);
          marketView.updateNewListingTable(newCoinsData);
     }
     public void getListNewCoin(MarketView marketView) {

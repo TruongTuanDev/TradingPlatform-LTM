@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 
 import controller.ResponseReceiver;
 import entities.DataItem;
+import entities.Token;
 import entities.Wallet;
 import utils.HandleViewClient;
 import views.LoginView;
@@ -47,7 +48,7 @@ public class SocketHandle {
 	private ResponseReceiver responseReceiver;
 	private LoginView loginView;
 	private ObjectInputStream objectIn;
-	public static List<DataItem> receivedTokenList;
+	public static List<Token> receivedTokenList;
 	
 	public SocketHandle() {
 	}
@@ -66,43 +67,38 @@ public class SocketHandle {
 		return outputWriter;
 	}
 	public void setUpSocket() {  
-		Thread thread = new Thread() {
+	    Thread thread = new Thread() {
+	        @SuppressWarnings("unchecked")
 			@Override
-			public void run() {
-				try {
-					socket = new Socket("172.20.10.4", 12345);
-					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
-//					objectIn = new ObjectInputStream(socket.getInputStream());
-					ObjectInputStream objectReader = new ObjectInputStream(socket.getInputStream());
-					try {
-						 receivedTokenList = (List<DataItem>) objectReader.readObject();
-						
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					String message;
-					 while (true) {
-	                        message = inputReader.readLine();
+	        public void run() {
+	            try {
+	                socket = new Socket("localhost", 12345);
+	                ObjectInputStream objectReader = new ObjectInputStream(socket.getInputStream());
+	                outputWriter = new PrintWriter(socket.getOutputStream(), true);
+
+	                while (true) {
+	                    Object receivedData = objectReader.readObject();
+	                    if (receivedData instanceof String) {
+	                        String message = (String) receivedData;
 	                        System.out.println("Nhận về: " + message);
-	                        if (message==null) {
-	                            break;
-	                        }
 	                        responseFromServer(message);
+	                    } else if (receivedData instanceof List<?>) {
+	                    	System.out.println("Nhận list: ");
+	                        receivedTokenList = (List<Token>) receivedData;
+	                        System.out.println("Received token list: " + receivedTokenList);
 	                    }
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-			} 
-		};	
-		thread.start();
-	}	
+	                }
+	            } catch (UnknownHostException e) {
+	                e.printStackTrace();
+	            } catch (IOException | ClassNotFoundException e) {
+	                e.printStackTrace();
+	            }
+	        } 
+	    };  
+	    thread.start();
+	}
+
+	
 	public List<Token> getListToken(List<Token> list){
 		List<Token> listToken = list;
 		return listToken

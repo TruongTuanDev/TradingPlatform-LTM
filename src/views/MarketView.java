@@ -2,6 +2,8 @@ package views;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import controller.MarketController;
 import datahandle.DataAPI;
 import entities.DataItem;
 
@@ -189,7 +191,8 @@ public class MarketView extends JPanel {
 
              MarketView dashboard = new MarketView();  // Sử dụng JPanel
              frame.add(dashboard);  // Thêm JPanel vào JFrame
-
+             
+             MarketController.getListCoin();
              dataAPI.getListCoinTop(dashboard);
              dataAPI.getListGainerCoin(dashboard);
              dataAPI.getListVolumeCoin(dashboard);

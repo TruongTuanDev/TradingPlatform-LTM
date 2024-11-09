@@ -18,7 +18,8 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import com.mysql.jdbc.Connection;
 
-
+import controller.MarketController;
+import datahandle.DataAPI;
 import utils.DrawPanel;
 import utils.EventViewMain;
 
@@ -60,6 +61,7 @@ public class MainView extends JFrame implements ActionListener {
     
     private static String nameLg;
     public static JLabel lblIconAcc;
+    public static DataAPI dataAPI;
     
     
     public MainView() {
@@ -68,7 +70,19 @@ public class MainView extends JFrame implements ActionListener {
 		setBounds(0, 0, 1600, 800);
 		getContentPane().setLayout(null);
 		panelHome.setBackground(Color.cyan);
+		loadDataIntoMarketView();
 	}
+    private void loadDataIntoMarketView() {
+       
+    	
+        MarketController.getListCoin();
+//        dataAPI.getListNewCoin(PanelHome);  // Truyền marketView để cập nhật bảng "New Listing"
+//        
+//        // Gọi các phương thức khác tương tự cho các bảng khác nếu cần
+//         dataAPI.getListCoinTop(PanelHome);
+//         dataAPI.getListGainerCoin(PanelHome);
+//         dataAPI.getListVolumeCoin(PanelHome);
+    }
     
     public MainView(String name) {
     	this.nameLg = name;
@@ -82,8 +96,18 @@ public class MainView extends JFrame implements ActionListener {
 	
 	private void initComponents() {
 		
-		PanelHome = new MarketView();
+		dataAPI = new DataAPI();
+		PanelHome = new JPanel();
+		PanelHome.setLayout(null);
+		MarketView dashboard = new MarketView(); 
+		dashboard.setBounds(0, 0, 1447, 692);  // Đặt kích thước cho MarketView
+	    PanelHome.add(dashboard);// Thêm JPanel vào JFrame
+        dataAPI.getListCoinTop(dashboard);
+        dataAPI.getListGainerCoin(dashboard);
+        dataAPI.getListVolumeCoin(dashboard);
+        dataAPI.getListNewCoin(dashboard);
 		PanelHome.setBounds(98, 71, 1447, 692);
+		
 		panelStock = new JPanel();	
 		panelStock.setBounds(98, 71, 1447, 692);
 		panelSale = new JPanel();
