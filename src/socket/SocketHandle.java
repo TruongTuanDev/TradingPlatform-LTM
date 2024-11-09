@@ -10,10 +10,12 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import controller.ResponseReceiver;
+import entities.DataItem;
 import entities.Wallet;
 import utils.HandleViewClient;
 import views.LoginView;
@@ -21,12 +23,31 @@ import views.MarketView;
 import views.TransactionView;
 
 public class SocketHandle {
+ 
+	public static enum Respose{	
+		LOGIN_FALSE,
+		REGISTER_SUCCESS,
+		REGISTER_FALSE,
+		RE,
+		BUY_SUCCESS,
+		SELL_SUCCESS,
+		BUY_FALSE,
+		SELL_FALSE,
+		DIPOSIT_SUCCESS,
+		DIPOSIT_FALSE,
+		WITHDRAW_SUCCESS,
+		WITHDRAW_FALSE,
+		BALANCE_SUCCESS,
+		USERNAME_MATCH
+	}
+	
 	public static BufferedReader inputReader;
 	public static PrintWriter outputWriter;
 	public static Socket socket;
 	private ResponseReceiver responseReceiver;
 	private LoginView loginView;
 	private ObjectInputStream objectIn;
+	public static List<DataItem> receivedTokenList;
 	
 	public SocketHandle() {
 	}
@@ -49,10 +70,19 @@ public class SocketHandle {
 			@Override
 			public void run() {
 				try {
-					socket = new Socket("localhost", 12345);
+					socket = new Socket("172.20.10.4", 12345);
 					inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputWriter = new PrintWriter(socket.getOutputStream(), true); 
 //					objectIn = new ObjectInputStream(socket.getInputStream());
+					ObjectInputStream objectReader = new ObjectInputStream(socket.getInputStream());
+					try {
+						 receivedTokenList = (List<DataItem>) objectReader.readObject();
+						
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					String message;
 					 while (true) {
 	                        message = inputReader.readLine();
@@ -73,6 +103,11 @@ public class SocketHandle {
 		};	
 		thread.start();
 	}	
+	public List<Token> getListToken(List<Token> list){
+		List<Token> listToken = list;
+		return listToken
+			;
+	}
 	public void responseFromServer(String message) {
         String[] messageSplit = message.split(",");
         switch (messageSplit[0].trim()) {
@@ -109,6 +144,10 @@ public class SocketHandle {
             System.out.println("Đăng ký thất bại");
 			JOptionPane.showMessageDialog(null, "Đăng ký thất bại");          	 
             break;
+        }
+        case "getlistcoin" :{
+        	
+        	break;
         }
         case "buy-success": {
             System.out.println("Mua token thành công");

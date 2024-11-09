@@ -14,6 +14,7 @@ import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import socket.SocketHandle;
 import views.MarketView;
 import views.OrderView;
 import entities.*;
@@ -23,6 +24,7 @@ public class DataAPI {
     private ApiCoinMarket apiCoinMarket;
     private static final String apiKey = "2eb6903c-5421-4c55-82f5-4b034647e300";
     private List<DataItem> listDataItem;
+    private SocketHandle  socketHandle;
 
     public DataAPI() {
         this.apiCoinMarket = ApiCoinMarket.apiCoinMarket;
@@ -68,6 +70,11 @@ public class DataAPI {
                 // Xử lý lỗi nếu cần
             }
         });
+    }
+    public void getListMyCoin(MarketView marketView) {
+    	
+    	 String[][] newCoinsData = processDataItems(SocketHandle.receivedTokenList);
+         marketView.updateNewListingTable(newCoinsData);
     }
     public void getListNewCoin(MarketView marketView) {
         fetchMarketDataNewCoin(new DataCallback<List<DataItem>>() {

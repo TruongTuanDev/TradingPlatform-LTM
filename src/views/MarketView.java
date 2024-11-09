@@ -15,6 +15,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class MarketView extends JPanel {
     public static DataAPI dataAPI;
 
+    private JTable myCoinTable;
+    private DefaultTableModel myCoinModel;
+    
     private JTable hotCoinsTable;
     private DefaultTableModel hotCoinsModel;
 
@@ -37,6 +40,7 @@ public class MarketView extends JPanel {
         setBackground(new Color(255, 0, 0)); // Màu đỏ
 
         // Khởi tạo DefaultTableModel
+        myCoinModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
         hotCoinsModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
         newListingModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
         topGainerModel = new DefaultTableModel(new Object[]{"ID", "Coin", "Price", "Change"}, 0);
@@ -72,6 +76,7 @@ public class MarketView extends JPanel {
         contentPanel.setBackground(new Color(255, 215, 0)); // Màu vàng
 
         // Add tables to contentPanel with initialized models
+        contentPanel.add(createTableSection("My Coins", myCoinModel));
         contentPanel.add(createTableSection("Hot Coins", hotCoinsModel));
         contentPanel.add(createTableSection("New Listing", newListingModel));
         contentPanel.add(createTableSection("Top Gainer Coin", topGainerModel));
@@ -142,6 +147,12 @@ public class MarketView extends JPanel {
     public void updateHotCoinsTable(String[][] hotCoinsData) {
         hotCoinsModel.setRowCount(0);
         for (String[] row : hotCoinsData) {
+            hotCoinsModel.addRow(row);
+        }
+    }
+    public void updateMyCoinsTable(String[][] myCoinsData) {
+        myCoinModel.setRowCount(0);
+        for (String[] row : myCoinsData) {
             hotCoinsModel.addRow(row);
         }
     }
