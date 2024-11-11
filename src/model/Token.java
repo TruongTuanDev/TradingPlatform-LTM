@@ -1,8 +1,12 @@
-package entities;
+package model;
 
 import java.io.Serializable;
 
 public class Token implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String token_id;
 	private String name;
 	private String symbol;
@@ -65,6 +69,11 @@ public class Token implements Serializable{
 	}
 	public void setQuantity(double quantity) {
 		this.quantity = quantity;
+	}
+	@Override
+	public String toString() {
+		return "Token [token_id=" + token_id + ", name=" + name + ", symbol=" + symbol + ", current_price="
+				+ current_price + ", date=" + date + ", marketcap=" + marketcap + ", quantity=" + quantity + "]";
 	}
 	
 	

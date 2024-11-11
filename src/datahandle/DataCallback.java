@@ -2,7 +2,7 @@ package datahandle;
 
 import java.util.List;
 
-import entities.DataItem;
+import model.DataItem;
 
 // Định nghĩa interface callback
 public interface DataCallback<T> {

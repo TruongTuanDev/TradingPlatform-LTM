@@ -1,6 +1,6 @@
 package utils;
 
-import entities.DataItem;
+import model.DataItem;
 
 public class AppState {
     private static AppState instance;

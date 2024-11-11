@@ -1,4 +1,4 @@
-package entities;
+package model;
 
 public class USD {
     private double price;

@@ -12,6 +12,7 @@ public class AuthController {
 	public static void login(String userName,String passWord) {
 		if (SocketHandle.getDaOutputStream() != null) {
 		    SocketHandle.getDaOutputStream().println("request-login,"+userName+","+passWord);
+		    MarketController.getListCoin();
 		} else {
 		    System.err.println("Output stream is not ready. Socket may not be initialized yet.");
 		}

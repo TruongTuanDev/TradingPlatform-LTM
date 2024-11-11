@@ -7,8 +7,7 @@ import java.util.List;
 import javax.swing.JLabel;
 
 import API.*;
-import entities.DataItem;
-import entities.Market;
+import model.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -17,7 +16,6 @@ import retrofit2.Response;
 import socket.SocketHandle;
 import views.MarketView;
 import views.OrderView;
-import entities.*;
 
 public class DataAPI {
 
@@ -44,11 +42,11 @@ public class DataAPI {
 
         return processedData;
     }
-    private String[][] processMyToken(List<Token> dataItems) {
+    private String[][] processMyToken(List<Token> dataItems) {	
         String[][] processedData = new String[dataItems.size()][4];
-
         for (int i = 0; i < dataItems.size(); i++) {
         	Token item = dataItems.get(i);
+        	
             processedData[i][0] = item.getToken_id();
             processedData[i][1] = item.getSymbol();
             processedData[i][2] = String.format("%.7f", item.getCurrent_price());
@@ -86,8 +84,10 @@ public class DataAPI {
         });
     }
     public void getListMyCoin(MarketView marketView) {   	
-    	 String[][] newCoinsData = processMyToken(SocketHandle.receivedTokenList);
-         marketView.updateNewListingTable(newCoinsData);
+    	
+    	 List<Token> listTokens = SocketHandle.receivedTokenList;
+         String[][] myCoinsData = processMyToken(listTokens);
+         marketView.updateMyCoinsTable(myCoinsData);
     }
     public void getListNewCoin(MarketView marketView) {
         fetchMarketDataNewCoin(new DataCallback<List<DataItem>>() {

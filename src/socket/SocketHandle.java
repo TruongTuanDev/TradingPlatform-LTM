@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import controller.ResponseReceiver;
-import entities.DataItem;
-import entities.Token;
-import entities.Wallet;
+import model.DataItem;
+import model.Token;
+import model.Wallet;
 import utils.HandleViewClient;
 import views.LoginView;
 import views.MarketView;
@@ -81,11 +81,15 @@ public class SocketHandle {
 	                    if (receivedData instanceof String) {
 	                        String message = (String) receivedData;
 	                        System.out.println("Nhận về: " + message);
-	                        responseFromServer(message);
+//	                        responseFromServer(message);
 	                    } else if (receivedData instanceof List<?>) {
+	                    	String message="login-success, ";
+	                    	responseFromServer(message);
 	                    	System.out.println("Nhận list: ");
 	                        receivedTokenList = (List<Token>) receivedData;
 	                        System.out.println("Received token list: " + receivedTokenList);
+	                    }else {
+	                    	System.out.println("Nhận list: ");
 	                    }
 	                }
 	            } catch (UnknownHostException e) {

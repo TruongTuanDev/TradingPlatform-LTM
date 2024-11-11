@@ -5,10 +5,13 @@ import javax.swing.table.DefaultTableModel;
 
 import controller.MarketController;
 import datahandle.DataAPI;
-import entities.DataItem;
+import model.DataItem;
+import model.Token;
+import socket.SocketHandle;
 
 import java.awt.*;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import utils.*;
 
@@ -152,10 +155,12 @@ public class MarketView extends JPanel {
             hotCoinsModel.addRow(row);
         }
     }
+ 
     public void updateMyCoinsTable(String[][] myCoinsData) {
         myCoinModel.setRowCount(0);
+       
         for (String[] row : myCoinsData) {
-            hotCoinsModel.addRow(row);
+        	myCoinModel.addRow(row);
         }
     }
 
@@ -181,7 +186,7 @@ public class MarketView extends JPanel {
     }
 
     public static void main(String[] args) {
-        dataAPI = new DataAPI();
+        
         
         SwingUtilities.invokeLater(() -> {
         	 JFrame frame = new JFrame("Markets Overview");
@@ -193,10 +198,7 @@ public class MarketView extends JPanel {
              frame.add(dashboard);  // Thêm JPanel vào JFrame
              
              MarketController.getListCoin();
-             dataAPI.getListCoinTop(dashboard);
-             dataAPI.getListGainerCoin(dashboard);
-             dataAPI.getListVolumeCoin(dashboard);
-             dataAPI.getListNewCoin(dashboard);
+            
              frame.setVisible(true);  // Hiển thị JFrame chứa JPanel
         });
     }
