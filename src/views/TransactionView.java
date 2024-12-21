@@ -94,6 +94,7 @@ public class TransactionView extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	Double quantityWithdraw = Double.parseDouble(txtWithdrawAmount.getText());
                 ExchangeController.withdrawCurency(quantityWithdraw, lblAccountId.getText());
+                
             }
         });
         withdrawPanel.setLayout(null);
