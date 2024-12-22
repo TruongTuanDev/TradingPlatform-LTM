@@ -25,8 +25,6 @@ import datahandle.DataAPI;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.BorderFactory;
@@ -35,7 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class OrderView extends JFrame{
+public class ViewOder extends JFrame{
 	public String symbool;
 	public String price;
 	public String percentChange;
@@ -48,31 +46,31 @@ public class OrderView extends JFrame{
 	private static DataAPI dataAPI;
 	public static int coinId;
 	private DefaultTableModel modelDataOtherCoin;
-	public static JLabel lableUsername,lblAvbUSD,lblAvbUSD_1;
+	public static JLabel lableUsername,lblAvbUSD;
 	private JButton btnTransaction;
 	
-	public OrderView() {
+	public ViewOder() {
 	}
 	public int getCoinId() {
 		return coinId;
 	}
 
 
-	public OrderView(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
+	public ViewOder(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
 		this.coinId = coinId;
 		this.symbool = symbool;
 		this.price = price;
 		this.percentChange = percentChange;
 		dataAPI = new DataAPI(); 
 		 SwingUtilities.invokeLater(() -> {
-	            dataAPI.getListCoinTopOrther(this);
+//	            dataAPI.getListCoinTopOrther(this);
 	        });
 		initComponents();	
 
 	}
 
 
-	public OrderView(int coinId) {
+	public ViewOder(int coinId) {
 		initComponents();
 
 		
@@ -121,7 +119,6 @@ public class OrderView extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				TransactionView  transactionView = new TransactionView();
 				TransactionView.lblAccountId.setText(lableUsername.getText());
-				TransactionView.txtBalance.setText(lblAvbUSD.getText());
 				transactionView.setVisible(true);
 			}
 		});
@@ -323,7 +320,7 @@ public class OrderView extends JFrame{
 		lblCoinMax.setBounds(294, 144, 45, 13);
 		leftPanel.add(lblCoinMax);
 		
-		lblAvbUSD = new JLabel("Tâmmmm");
+		lblAvbUSD = new JLabel();
 		lblAvbUSD.setForeground(Color.WHITE);
 		lblAvbUSD.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblAvbUSD.setBounds(180, 121, 100, 13);
@@ -351,15 +348,9 @@ public class OrderView extends JFrame{
 			    String buyDate = currentDateTime.toString();
 			    String userName=lableUsername.getText();
 			    System.out.println("User name : "+userName );
-			    double priceBuy =((Number) txtPriceBuy.getValue()).doubleValue();
-			    double AvbUSD = Double.parseDouble(lblAvbUSD.getText()); 
+			    double priceBuy =((Number) txtPriceBuy.getValue()).doubleValue();;
 			    double quantityUSD = priceBuy * quantity_order;
-			    if(AvbUSD < quantityUSD) {
-					JOptionPane.showMessageDialog(null, "Số dư không đủ");
-			    }else {
-			    	 OrderController.buyCoin(priceBuy, quantity_order, symbol, buyDate,userName);
-			    }
-			   
+			    OrderController.buyCoin(priceBuy, quantity_order, symbol, buyDate,userName);
 			}
 		});
 	
@@ -429,7 +420,7 @@ public class OrderView extends JFrame{
 		lblCoinMax_1.setBounds(302, 120, 45, 13);
 		rightPanel.add(lblCoinMax_1);
 		
-		lblAvbUSD_1 = new JLabel("Tâm");
+		JLabel lblAvbUSD_1 = new JLabel("1000");
 		lblAvbUSD_1.setForeground(Color.WHITE);
 		lblAvbUSD_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblAvbUSD_1.setBounds(219, 121, 45, 13);

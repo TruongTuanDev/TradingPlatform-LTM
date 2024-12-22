@@ -7,6 +7,7 @@ import controller.MarketController;
 import datahandle.DataAPI;
 import model.DataItem;
 import model.Token;
+import model.LoginResponse;
 import socket.SocketHandle;
 
 import java.awt.*;
@@ -39,6 +40,7 @@ public class MarketView extends JPanel {
     public static JLabel labelName, lableBalance;
 
     public MarketView() {
+    	
         lableBalance = new JLabel();
 
         setLayout(new BorderLayout());
@@ -62,7 +64,8 @@ public class MarketView extends JPanel {
 
         labelId = new JLabel();
         labelId.setForeground(Color.WHITE);
-        labelName = new JLabel("Anonymus");
+        
+        labelName = new JLabel();
         labelName.setForeground(Color.WHITE);
         labelName.setFont(new Font("Trebuchet MS", Font.ITALIC, 21));
 
@@ -149,6 +152,14 @@ public class MarketView extends JPanel {
 
         return panel;
     }
+    public void updateUIMarket(LoginResponse response) {
+    	 SwingUtilities.invokeLater(() -> {
+    	        labelName.setText(response.getUserName());
+    	        labelName.revalidate();
+    	        labelName.repaint();
+    	        System.out.println("User name market : " + response.getUserName());
+    	    });
+	}
 
     public void updateHotCoinsTable(String[][] hotCoinsData) {
         hotCoinsModel.setRowCount(0);
@@ -185,7 +196,8 @@ public class MarketView extends JPanel {
             topVolumeModel.addRow(row);
         }
     }
-
+    
+   
     public static void main(String[] args) {
         
         
