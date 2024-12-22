@@ -46,7 +46,7 @@ public class OrderView extends JFrame{
 	private static DataAPI dataAPI;
 	public static int coinId;
 	private DefaultTableModel modelDataOtherCoin;
-	public static JLabel lableUsername,lblAvbUSD;
+	public static JLabel lableUsername,lblAvbUSD,lblAvbUSD_1;
 	private JButton btnTransaction;
 	
 	public OrderView() {
@@ -419,7 +419,7 @@ public class OrderView extends JFrame{
 		lblCoinMax_1.setBounds(302, 120, 45, 13);
 		rightPanel.add(lblCoinMax_1);
 		
-		JLabel lblAvbUSD_1 = new JLabel("Tâm");
+		lblAvbUSD_1 = new JLabel("Tâm");
 		lblAvbUSD_1.setForeground(Color.WHITE);
 		lblAvbUSD_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblAvbUSD_1.setBounds(219, 121, 45, 13);

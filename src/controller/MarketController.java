@@ -3,6 +3,10 @@ package controller;
 import socket.SocketHandle;
 
 public class MarketController {
+	public static void getQuantityCurency(String userName,String symbol) {
+		
+		SocketHandle.getDaOutputStream().println("request-quantity_curency,"+userName+","+symbol+",");
+	}
 	public static void getListCoin() {	
 		
 		if (SocketHandle.getDaOutputStream() != null) {

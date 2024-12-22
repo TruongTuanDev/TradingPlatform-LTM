@@ -138,6 +138,7 @@ public class MarketView extends JPanel {
                     OrderView orderView = new OrderView(coinID, symbol, formattedNumber, percentChange);
                     OrderView.lableUsername.setText(labelName.getText());
                     OrderView.lblAvbUSD.setText(lableBalance.getText());
+                    MarketController.getQuantityCurency(labelName.getText(), symbol);
                     orderView.setVisible(true);
                 }
             }

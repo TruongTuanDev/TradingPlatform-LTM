@@ -21,6 +21,7 @@ import model.Wallet;
 import utils.HandleViewClient;
 import views.LoginView;
 import views.MarketView;
+import views.OrderView;
 import views.TransactionView;
 
 public class SocketHandle {
@@ -187,6 +188,10 @@ public class SocketHandle {
         }case "Balance-success": {
             System.out.println(messageSplit[1]);
             TransactionView.txtBalance.setText(messageSplit[1]);        	 
+            break;
+        }case "quantity_curency-success": {
+            System.out.println(messageSplit[1]);
+            OrderView.lblAvbUSD_1.setText(messageSplit[2]);        	 
             break;
         }
             case "username-match": {
