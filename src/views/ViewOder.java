@@ -25,8 +25,6 @@ import datahandle.DataAPI;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.BorderFactory;
@@ -35,7 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 
-public class OrderView extends JFrame{
+public class ViewOder extends JFrame{
 	public String symbool;
 	public String price;
 	public String percentChange;
@@ -51,28 +49,28 @@ public class OrderView extends JFrame{
 	public static JLabel lableUsername,lblAvbUSD;
 	private JButton btnTransaction;
 	
-	public OrderView() {
+	public ViewOder() {
 	}
 	public int getCoinId() {
 		return coinId;
 	}
 
 
-	public OrderView(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
+	public ViewOder(int coinId, String symbool, String price, String percentChange) throws HeadlessException {
 		this.coinId = coinId;
 		this.symbool = symbool;
 		this.price = price;
 		this.percentChange = percentChange;
 		dataAPI = new DataAPI(); 
 		 SwingUtilities.invokeLater(() -> {
-	            dataAPI.getListCoinTopOrther(this);
+//	            dataAPI.getListCoinTopOrther(this);
 	        });
 		initComponents();	
 
 	}
 
 
-	public OrderView(int coinId) {
+	public ViewOder(int coinId) {
 		initComponents();
 
 		
@@ -350,15 +348,9 @@ public class OrderView extends JFrame{
 			    String buyDate = currentDateTime.toString();
 			    String userName=lableUsername.getText();
 			    System.out.println("User name : "+userName );
-			    double priceBuy =((Number) txtPriceBuy.getValue()).doubleValue();
-			    double AvbUSD = Double.parseDouble(lblAvbUSD.getText()); 
+			    double priceBuy =((Number) txtPriceBuy.getValue()).doubleValue();;
 			    double quantityUSD = priceBuy * quantity_order;
-			    if(AvbUSD < quantityUSD) {
-					JOptionPane.showMessageDialog(null, "Số dư không đủ");
-			    }else {
-			    	 OrderController.buyCoin(priceBuy, quantity_order, symbol, buyDate,userName);
-			    }
-			   
+			    OrderController.buyCoin(priceBuy, quantity_order, symbol, buyDate,userName);
 			}
 		});
 	

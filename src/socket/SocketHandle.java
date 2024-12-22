@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 
 import controller.ResponseReceiver;
 import model.DataItem;
+import model.LoginResponse;
 import model.Token;
 import model.Wallet;
 import utils.HandleViewClient;
@@ -49,6 +50,8 @@ public class SocketHandle {
 	private LoginView loginView;
 	private ObjectInputStream objectIn;
 	public static List<Token> receivedTokenList;
+	private MarketView  marketView;
+	private LoginResponse receivedData;
 	
 	public SocketHandle() {
 	}
@@ -67,6 +70,7 @@ public class SocketHandle {
 		return outputWriter;
 	}
 	public void setUpSocket() {  
+		marketView = new MarketView();
 	    Thread thread = new Thread() {
 	        @SuppressWarnings("unchecked")
 			@Override
@@ -77,20 +81,32 @@ public class SocketHandle {
 	                outputWriter = new PrintWriter(socket.getOutputStream(), true);
 
 	                while (true) {
+//	                    Object receivedData = objectReader.readObject();
+	                    
+//	                    receivedData = (LoginResponse) objectReader.readObject();
 	                    Object receivedData = objectReader.readObject();
-	                    if (receivedData instanceof String) {
-	                        String message = (String) receivedData;
-	                        System.out.println("Nhận về: " + message);
-//	                        responseFromServer(message);
-	                    } else if (receivedData instanceof List<?>) {
-	                    	String message="login-success, ";
-	                    	responseFromServer(message);
-	                    	System.out.println("Nhận list: ");
-	                        receivedTokenList = (List<Token>) receivedData;
+
+	                    if (receivedData instanceof LoginResponse) {
+	                        // Nếu dữ liệu là một đối tượng LoginResponse
+	                        LoginResponse loginResponse = (LoginResponse) receivedData;
+	                        System.out.println("Received a LoginResponse object: " + loginResponse.toString());
+	                        System.out.println("Nhận này ha "+receivedData);
+	 	                 
+	                        responseFromServer(loginResponse.getStatus());
+	                        marketView.updateUIMarket(loginResponse);
+	                    
+	                        receivedTokenList = (List<Token>) loginResponse.getTokens();
 	                        System.out.println("Received token list: " + receivedTokenList);
-	                    }else {
-	                    	System.out.println("Nhận list: ");
+	                    } else if (receivedData instanceof ArrayList) {
+	                        // Nếu dữ liệu là một ArrayList (ví dụ: danh sách các Token)
+	                        ArrayList<?> tokenList = (ArrayList<?>) receivedData;
+	                        System.out.println("Received an ArrayList: " + tokenList);
+	                    } else {
+	                        System.out.println("Received an unknown type: " + receivedData.getClass().getName());
 	                    }
+	                   
+	                    
+	                    
 	                }
 	            } catch (UnknownHostException e) {
 	                e.printStackTrace();
@@ -115,17 +131,7 @@ public class SocketHandle {
 			JOptionPane.showMessageDialog(null, "Đăng nhập thành công");          	 
         	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
              HandleViewClient.openView(HandleViewClient.Views.MAINVIEW);
-             if(messageSplit[1] != null) {
-            	 String userName = messageSplit[1];
-//            	 String balance = messageSplit[2];
-                    	 SwingUtilities.invokeLater(() -> {          	
-                             MarketView.labelName.setText(userName);
-//                             MarketView.lableBalance.setText(balance);
-                             
-         		        });
-}else {
-            	 MarketView.labelName.setText("Name: Anonymus");
-             }
+
             
             break;
         }
@@ -208,4 +214,7 @@ public class SocketHandle {
                 break;
         }
     }
+	
+	
+
 }
