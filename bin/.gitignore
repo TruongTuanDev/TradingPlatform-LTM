@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /API/
 /Item/
 /app/
@@ -11,3 +12,8 @@
 /socket/
 /utils/
 /views/
+=======
+/model/
+/views/
+/socket/
+>>>>>>> 38505ddda28d29c224fc7b061b506bb130dc5b12

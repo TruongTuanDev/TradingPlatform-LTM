@@ -86,6 +86,7 @@ public class SocketHandle {
 //	                    receivedData = (LoginResponse) objectReader.readObject();
 	                    Object receivedData = objectReader.readObject();
 
+
 	                    if (receivedData instanceof LoginResponse) {
 	                        // Nếu dữ liệu là một đối tượng LoginResponse
 	                        LoginResponse loginResponse = (LoginResponse) receivedData;
@@ -96,6 +97,18 @@ public class SocketHandle {
 	                        marketView.updateUIMarket(loginResponse);
 	                    
 	                        receivedTokenList = (List<Token>) loginResponse.getTokens();
+
+	                    if (receivedData instanceof String) {
+	                        String message = (String) receivedData;
+	                        System.out.println("Nhận về: " + message);
+	                        responseFromServer(message);
+//	                        responseFromServer(message);
+	                    } else if (receivedData instanceof List<?>) {
+	                    	String message="login-success, ";
+	                    	
+	                    	System.out.println("Nhận list: ");
+	                        receivedTokenList = (List<Token>) receivedData;
+
 	                        System.out.println("Received token list: " + receivedTokenList);
 	                    } else if (receivedData instanceof ArrayList) {
 	                        // Nếu dữ liệu là một ArrayList (ví dụ: danh sách các Token)
@@ -108,7 +121,9 @@ public class SocketHandle {
 	                    
 	                    
 	                }
-	            } catch (UnknownHostException e) {
+	                }
+	            }
+	            catch (UnknownHostException e) {
 	                e.printStackTrace();
 	            } catch (IOException | ClassNotFoundException e) {
 	                e.printStackTrace();
@@ -131,6 +146,18 @@ public class SocketHandle {
 			JOptionPane.showMessageDialog(null, "Đăng nhập thành công");          	 
         	 HandleViewClient.closeView(HandleViewClient.Views.LOGIN);
              HandleViewClient.openView(HandleViewClient.Views.MAINVIEW);
+
+             if(messageSplit[1] != null) {
+            	 String userName = messageSplit[1];
+            	 String balance = messageSplit[2];
+                    	 SwingUtilities.invokeLater(() -> {          	
+                             MarketView.labelName.setText(userName);
+                             MarketView.lableBalance.setText(balance);
+                             
+         		        });
+}else {
+            	 MarketView.labelName.setText("Name: Anonymus");
+             }
 
             
             break;
@@ -171,11 +198,10 @@ public class SocketHandle {
             System.out.println("Bán token thất bại");
 			JOptionPane.showMessageDialog(null, "Bán token thất bại");          	 
             break;
-        }case "diposit-success": {
+        }case "deposit-success": {
             System.out.println("Nạp tiền thành công");
 			JOptionPane.showMessageDialog(null, "Nạp tiền thành công");   
-			TransactionView.txtBalance.setText(messageSplit[1]);
-			
+			TransactionView.txtBalance.setText(messageSplit[2]);
             break;
         } case "diposit-false": {
             System.out.println("Nạp tiền thất bại");
@@ -184,7 +210,7 @@ public class SocketHandle {
         }case "withdraw-success": {
             System.out.println("Rút tiền thành công");
 			JOptionPane.showMessageDialog(null, "Rút tiền thành công"); 
-			TransactionView.txtBalance.setText(messageSplit[1]);
+			TransactionView.txtBalance.setText(messageSplit[2]);
             break;
         } case "withdraw-false": {
             System.out.println("Rút tiền thất bại");

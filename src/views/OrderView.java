@@ -121,6 +121,7 @@ public class OrderView extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				TransactionView  transactionView = new TransactionView();
 				TransactionView.lblAccountId.setText(lableUsername.getText());
+				TransactionView.txtBalance.setText(lblAvbUSD.getText());
 				transactionView.setVisible(true);
 			}
 		});
@@ -322,7 +323,7 @@ public class OrderView extends JFrame{
 		lblCoinMax.setBounds(294, 144, 45, 13);
 		leftPanel.add(lblCoinMax);
 		
-		lblAvbUSD = new JLabel();
+		lblAvbUSD = new JLabel("Tâmmmm");
 		lblAvbUSD.setForeground(Color.WHITE);
 		lblAvbUSD.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblAvbUSD.setBounds(180, 121, 100, 13);
@@ -428,7 +429,7 @@ public class OrderView extends JFrame{
 		lblCoinMax_1.setBounds(302, 120, 45, 13);
 		rightPanel.add(lblCoinMax_1);
 		
-		JLabel lblAvbUSD_1 = new JLabel("1000");
+		JLabel lblAvbUSD_1 = new JLabel("Tâm");
 		lblAvbUSD_1.setForeground(Color.WHITE);
 		lblAvbUSD_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblAvbUSD_1.setBounds(219, 121, 45, 13);
