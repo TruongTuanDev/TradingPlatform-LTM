@@ -99,7 +99,7 @@ public class SocketHandle {
 	                    
 	                        receivedTokenList = (List<Token>) loginResponse.getTokens();
 
-	                    if (receivedData instanceof String) {
+	                    }if (receivedData instanceof String) {
 	                        String message = (String) receivedData;
 	                        System.out.println("Nhận về: " + message);
 	                        responseFromServer(message);
@@ -123,7 +123,7 @@ public class SocketHandle {
 	                    
 	                }
 	                }
-	            }
+	            
 	            catch (UnknownHostException e) {
 	                e.printStackTrace();
 	            } catch (IOException | ClassNotFoundException e) {
@@ -141,6 +141,7 @@ public class SocketHandle {
 			;
 	}
 	public void responseFromServer(String message) {
+		System.out.println("Nhận về trạng thái + "+ message);
         String[] messageSplit = message.split(",");
         switch (messageSplit[0].trim()) {
         case "login-success": {
@@ -185,7 +186,9 @@ public class SocketHandle {
         }
         case "buy-success": {
             System.out.println("Mua token thành công");
-			JOptionPane.showMessageDialog(null, "Mua token thành công");          	 
+			JOptionPane.showMessageDialog(null, "Mua token thành công");        
+			OrderView.lblAvbUSD.setText(messageSplit[1]);
+			OrderView.lblAvbUSD_1.setText(messageSplit[2]);
             break;
         }case "sell-success": {
             System.out.println("Bán token thành công");
@@ -203,6 +206,8 @@ public class SocketHandle {
             System.out.println("Nạp tiền thành công");
 			JOptionPane.showMessageDialog(null, "Nạp tiền thành công");   
 			TransactionView.txtBalance.setText(messageSplit[2]);
+			OrderView.lblAvbUSD.setText(messageSplit[2]);  
+			
             break;
         } case "diposit-false": {
             System.out.println("Nạp tiền thất bại");
@@ -212,6 +217,7 @@ public class SocketHandle {
             System.out.println("Rút tiền thành công");
 			JOptionPane.showMessageDialog(null, "Rút tiền thành công"); 
 			TransactionView.txtBalance.setText(messageSplit[2]);
+			OrderView.lblAvbUSD.setText(messageSplit[2]);
             break;
         } case "withdraw-false": {
             System.out.println("Rút tiền thất bại");
