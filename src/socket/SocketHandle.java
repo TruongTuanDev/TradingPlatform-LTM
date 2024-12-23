@@ -77,7 +77,7 @@ public class SocketHandle {
 			@Override
 	        public void run() {
 	            try {
-	                socket = new Socket("192.168.1.100", 12345);
+	                socket = new Socket("localhost", 12345);
 	                ObjectInputStream objectReader = new ObjectInputStream(socket.getInputStream());
 	                outputWriter = new PrintWriter(socket.getOutputStream(), true);
 
