@@ -74,6 +74,7 @@ public class MainView extends JFrame implements ActionListener {
 		setBounds(0, 0, 1600, 800);
 		getContentPane().setLayout(null);
 		panelHome.setBackground(Color.cyan);
+		OrderView orderView = new OrderView(); 
 		
 	}
   
@@ -103,9 +104,17 @@ public class MainView extends JFrame implements ActionListener {
 		dataAPI = new DataAPI();
 		PanelHome = new JPanel();
 		PanelHome.setLayout(null);
+		
+		panelAddPr = new JPanel();
+		panelAddPr.setLayout(null);
+		
 		MarketView dashboard = new MarketView(); 
 		dashboard.setBounds(0, 0, 1447, 692);  // Đặt kích thước cho MarketView
 	    PanelHome.add(dashboard);// Thêm JPanel vào JFrame
+	    OrderView orderView = new OrderView();
+	    SendMoneyView sendMoneyView = new SendMoneyView();
+	    sendMoneyView.setBounds(0, 0, 1447, 692);  
+	    panelAddPr.add(sendMoneyView);
 	    
 	    dataAPI.getListMyCoin(dashboard);
         dataAPI.getListCoinTop(dashboard);
@@ -121,7 +130,7 @@ public class MainView extends JFrame implements ActionListener {
 		panelSale.setBounds(98, 71, 1447, 692);
 		panelSta = new JPanel();
 		panelSta.setBounds(98, 71, 1447, 692);
-		panelAddPr = new JPanel();
+		
 		panelAddPr.setBounds(98, 71, 1447, 692);
 
 		panelMenu = new DrawPanel(0, 0, 0, 0);

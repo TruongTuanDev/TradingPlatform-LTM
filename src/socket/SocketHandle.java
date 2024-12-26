@@ -223,8 +223,18 @@ public class SocketHandle {
             System.out.println(messageSplit[1]);
             TransactionView.txtBalance.setText(messageSplit[1]);        	 
             break;
+        }
+        case "sendmony-success": {
+
+            JOptionPane.showMessageDialog(null, "Chuyển thành công");        	 
+            break;
+        }
+        case "sendmony-false": {
+           
+            JOptionPane.showMessageDialog(null, "Chuyển thất bại");       	 
+            break;
         }case "quantity_curency-success": {
-            System.out.println(messageSplit[1]);
+           
             OrderView.lblAvbUSD_1.setText(messageSplit[2]);        	 
             break;
         }
