@@ -358,6 +358,11 @@ public class OrderView extends JFrame{
 					JOptionPane.showMessageDialog(null, "Số dư không đủ");
 			    }else {
 			    	 OrderController.buyCoin(priceBuy, quantity_order, symbol, buyDate,userName);
+			    	 Double avb = AvbUSD - quantityUSD;
+			    	 lblAvbUSD.setText(avb.toString());
+			    	 
+			    	Double avbT = (Double.parseDouble(lblAvbUSD_1.getText())) + quantity_order;
+			    	lblAvbUSD_1.setText(avbT.toString());
 			    }
 			   
 			}
@@ -457,8 +462,17 @@ public class OrderView extends JFrame{
 			    String buyDate = currentDateTime.toString();
 			    String userName=lableUsername.getText();
 			    double priceSell =((Number) txtPriceSell.getValue()).doubleValue();;
-			    double quantityUSD = priceSell * quantity_order;
-			    OrderController.sellCoin(priceSell, quantityUSD, quantity_order, symbol, buyDate,userName);
+			    Double quantityCrurent = Double.parseDouble(lblAvbUSD_1.getText()) ;
+			    if(quantityCrurent < quantity_order) {
+			    	JOptionPane.showMessageDialog(null, "Số dư không đủ");
+			    }else {
+			    	OrderController.sellCoin(priceSell, quantity_order, symbol, buyDate,userName);
+			    	Double avb = quantityCrurent - quantity_order;
+			    	lblAvbUSD_1.setText(avb.toString());
+			    	
+			    	Double avbC = (Double.parseDouble(lblAvbUSD.getText())) + quantity_order * priceSell;
+			    	lblAvbUSD.setText(avbC.toString());
+			    }		    
 			}
 		});
 		rightPanel.add(btnSell);

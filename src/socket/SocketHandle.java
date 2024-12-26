@@ -86,7 +86,8 @@ public class SocketHandle {
 	                    
 //	                    receivedData = (LoginResponse) objectReader.readObject();
 	                    Object receivedData = objectReader.readObject();
-
+//	                    System.out.println("Nhận về : " + receivedData);
+//	                    responseFromServer(receivedData.toString());
 
 	                    if (receivedData instanceof LoginResponse) {
 	                        // Nếu dữ liệu là một đối tượng LoginResponse
@@ -99,7 +100,7 @@ public class SocketHandle {
 	                    
 	                        receivedTokenList = (List<Token>) loginResponse.getTokens();
 
-	                    }if (receivedData instanceof String) {
+	                    }else if (receivedData instanceof String) {
 	                        String message = (String) receivedData;
 	                        System.out.println("Nhận về: " + message);
 	                        responseFromServer(message);
@@ -141,7 +142,8 @@ public class SocketHandle {
 			;
 	}
 	public void responseFromServer(String message) {
-		System.out.println("Nhận về trạng thái + "+ message);
+
+		System.out.println("nhận về trạng thái + "+ message );
         String[] messageSplit = message.split(",");
         switch (messageSplit[0].trim()) {
         case "login-success": {
@@ -157,7 +159,7 @@ public class SocketHandle {
                              MarketView.lableBalance.setText(balance);
                              
          		        });
-}else {
+             }else {
             	 MarketView.labelName.setText("Name: Anonymus");
              }
 
