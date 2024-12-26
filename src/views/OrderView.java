@@ -49,6 +49,8 @@ public class OrderView extends JFrame{
 	public static int coinId;
 	private DefaultTableModel modelDataOtherCoin;
 	public static JLabel lableUsername,lblAvbUSD,lblAvbUSD_1;
+	
+
 	private JButton btnTransaction;
 	
 	public OrderView() {
@@ -74,7 +76,8 @@ public class OrderView extends JFrame{
 
 	public OrderView(int coinId) {
 		initComponents();
-
+		
+		
 		
 	}
 	private void bindingData() {
@@ -122,6 +125,8 @@ public class OrderView extends JFrame{
 				TransactionView  transactionView = new TransactionView();
 				TransactionView.lblAccountId.setText(lableUsername.getText());
 				TransactionView.txtBalance.setText(lblAvbUSD.getText());
+				SendMoneyView.labelBalance.setText(lblAvbUSD.getText());
+				SendMoneyView.labelName.setText(lableUsername.getText());
 				transactionView.setVisible(true);
 			}
 		});
